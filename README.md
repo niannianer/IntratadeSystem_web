@@ -69,15 +69,16 @@ server{
 
 * 使用变量，常用的字体颜色以及背景颜色变量存放于less/variables.less文件里，使用时只需引入该文件
 
-* 使用rem，设计稿基于iphone6 ，less/rem.less以针对不同机型做了适配，
-使用时将设计师标注的px数值除以20变算为rem数值，rem数值精确到0.05.
-* 使用padding或者margin来控制边距，通常为0.8rem,比如
-* 这样可以使.index占满宽度，并且边上由一定空隙
+* web 端内容区宽度固定为1024px ，字体大小以及容器宽高 ，按照设计师标注编写。
 ```less
-.index {
-    position:relative;
-    padding:0.5rem 0.8rem;
-}
+ .content{
+                position: relative;
+                height: 78px;
+                line-height: 78px;
+                width: @warp-width;
+                margin: auto;
+                color: #C59759;
+            }
 ```
 
 
