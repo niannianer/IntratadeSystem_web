@@ -19,40 +19,27 @@ cnpm run dev
 ```
 # nginx 配置
 ```
-server {
-        listen       8080;
+server{
+	   listen       8088;
       
        server_name  localhost;
-
-        location ~\.html {
-            root  /ZJ/kingold_weixin/build;
-			add_header Cache-Control 'no-store';
-            allow all;
-        }
-		
-		
-		 location / {
-			root /ZJ/kingold_vue/html;
+	    location / {
+			root /ZJ/web-kingold/html;
             add_header Cache-Control 'no-store';
 			index  index.html index.htm;
 
 			try_files $uri $uri/ /index.html =404;
 		  }
-		 location ~* ^.+dist.+\.(css|js|txt|xml|swf|wav|png|jpg|html|woff|ttf)$ {  
-					root   /ZJ/kingold_vue;
-					access_log   off;  
-					expires      24h;  
-				} 
-		 location ~* ^.+\.(css|js|txt|xml|swf|wav|png|jpg|html|woff|ttf)$ {  
-			root  /ZJ/kingold_weixin/build;
+		   location ~* ^.+\.(css|js|txt|xml|swf|wav|png|jpg|json|woff|ttf)$ {  
+			root  /ZJ/web-kingold;
 			access_log   off;  
-			expires      24h;  
+			expires      30d;  
 		} 
-    }
+	}
 
 
 ```
-访问 [localhost:8080/login](http://localhost:8080/login) 
+访问 [localhost:8088/login](http://localhost:8088/login) 
 
 # 代码规范
 
@@ -100,8 +87,4 @@ server {
 
 ## 使用es6
 * 使用es6语法
-* 为保证兼容性，不可以使用es6新增的原型方法 ，比如 Array.prototype.filter ,String.prototype.startWith等
- 因为要使用这些方法，必须引入 babel-polyfill ,然后这个文件巨大。
-*  如有需要可使用lodash/core里等方法,链接[lodash/core](https://github.com/lodash/lodash/wiki/build-differences)
- 
-
+* 引入 babel-polyfill ,推荐使用es6 原生方法。
