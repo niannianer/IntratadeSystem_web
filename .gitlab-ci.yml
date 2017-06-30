@@ -6,8 +6,7 @@ weixin-vue-test:
   tags:
     - weixin-jq-tag
   script:
-    - cnpm install
-    - cnpm run test
+    - echo 'start...'
 
   only:
     - /^.*test$/
@@ -24,8 +23,7 @@ weixin-vue-build:
   tags:
     - weixin-jq-tag
   script:
-    - cnpm install
-    - cnpm run build
+    - echo 'start...'
 
   only:
     - build
