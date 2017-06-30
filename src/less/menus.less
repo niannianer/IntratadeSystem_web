@@ -1,0 +1,28 @@
+@charset "UTF-8";
+@import "variables";
+
+.menu-warp {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    .menus{
+        width: 160px;
+        background-color: #fff;
+        padding: 20px 0px;
+        .menu{
+            text-align: center;
+            display: block;
+            font-size: 20px;
+            color: @color-primary;
+            line-height: 44px;
+            text-decoration: none;
+            &.menu-active{
+                color: #fff;
+                background-color: @bg-menu-active;
+            }
+        }
+    }
+    .content-view{
+        margin-left: 46px;
+    }
+}
