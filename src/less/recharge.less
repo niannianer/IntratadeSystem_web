@@ -1,0 +1,118 @@
+@charset "UTF-8";
+@import "recharge";
+
+.recharge {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+    background-color: #fff;
+    .recharge-tabs{
+        font-size: 20px;
+        overflow: hidden;
+        text-align: center;
+        .tab{
+            float:left;
+            width:50%;
+            height:50px;
+            line-height: 50px;
+            background-color:#D8D8D8;
+            cursor: pointer;
+        }
+        .active{
+            background-color: #E2A456;
+            color:#fff;
+        }
+    }
+    .recharge-content{
+        padding:20px 30px;
+        font-size: 16px;
+        .recharge-pay{
+            .com{
+                .div{
+                    color:#5B3509;
+                    margin-right: 22px
+                }
+            }
+            .way{
+                line-height: 1em;
+            }
+            .monery{
+                margin-top:30px;
+                height:44px;line-height: 44px;
+                .inputs{
+                    input{
+                        width:252px;
+                        border: 1px solid #EDAE5D;
+                        height:42px;
+                        padding:0 10px;
+                        font-size: 14px;
+                        border-radius: 4px;
+                    }
+                }
+            }
+            .hint{
+                margin-top: 10px;
+                font-size: 14px;
+                color: #9D6129;
+                line-height: 14px;
+                padding-left: 86px;
+            }
+        }
+        .recharge-success{
+            padding-top:30px;
+            .success-icon{
+                height:54px;line-height: 54px;
+                font-size: 24px;
+                .img{
+                    padding-right: 16px;
+                }
+            }
+        }
+        .btns{
+            margin-top:40px;
+            padding-left: 86px;
+            button{
+                background-image: linear-gradient(-180deg, #EBAC5B 0%, #73370D 100%);
+                border-radius: 4px;
+                width:140px;height:36px;font-size: 18px;
+                color:#FCFBF9;
+                outline: none;
+            }
+        }
+        .again{
+            padding:0;
+            margin-top:30px;
+            button{
+                height: 36px;
+                width:183px;
+            }
+        }
+        .page-list{
+            margin-top:50px;
+            h6{
+                color: #3F3F3F;
+            }
+            p{
+                padding-left: 18px;
+                line-height: 28px;
+                font-size: 14px;
+                margin:0;
+                color: #3F3F3F;
+                span{
+                    color:#9D6129
+                }
+            }
+        }
+    }
+    .left{
+        float: left;
+    }
+    .clear{zoom:1;}
+    .clear:after{
+        content: "";
+        display: block;
+        width:0;height:0;
+        overflow: hidden;
+        clear:both;
+    }
+}
