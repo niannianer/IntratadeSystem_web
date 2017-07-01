@@ -8,10 +8,11 @@
                     <div class="div" flex-box="0" v-if="!userId">登录</div>
                     <div class="div user" flex-box="0" v-else @click.stop="preLogout">
                         <span>{{userLoginName}}</span>
-                        <span class="triangle"></span>
-                        <div class="logout" flex="main:center cross:center">
-                            <img class="head-image" src=""/>
-                            <span>退出</span>
+                        <span class="triangle" :class="{'rotate':showLogout}"></span>
+                        <div class="logout" v-show="showLogout"
+                             flex="main:center cross:center">
+                            <span class="head-image"></span>
+                            <span class="do-logout">退出</span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
         ]),
         methods: {
             preLogout(){
-                this.showLogout = true;
+                this.showLogout = !this.showLogout;
             }
         }
     }

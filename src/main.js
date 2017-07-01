@@ -22,4 +22,5 @@ new Vue({
 });
 store.dispatch('getUserInfo');
 store.dispatch('getBaofooInfo');
+store.dispatch('getBankInfo');
 

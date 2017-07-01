@@ -11,15 +11,15 @@
                 line-height: 30px;
                 width: @warp-width;
                 margin: auto;
-                .div{
+                .div {
                     padding: 0 10px;
                     color: #fff;
                 }
-                .user{
+                .user {
                     position: relative;
                     padding-right: 20px;
                     .triangle {
-                        position:absolute;
+                        position: absolute;
                         top: 50%;
                         right: 0;
                         width: 0;
@@ -27,26 +27,49 @@
                         margin-top: -3px;
                         border-width: 6px;
                         border-style: solid dashed dashed dashed;
-                        border-color: #ffffff transparent transparent transparent;
+                        border-color: #fff transparent transparent transparent;
+                        transition-property: transform;
+                        transition-duration: .25s;
+                        &.rotate {
+                            transform: rotate(180deg) translateY(6px)
+
+                        }
                     }
-                    .logout{
+                    .logout {
                         position: absolute;
+                        z-index: 9;
                         left: 50%;
-                        bottom:-40px ;
+                        bottom: -40px;
                         margin-left: -44px;
                         width: 88px;
                         height: 48px;
                         background-image: url("../images/logout-bg.png");
                         background-size: cover;
-                        .head-image{
-
+                        cursor: pointer;
+                        .head-image {
+                            margin-right: 5px;
+                            width: 22px;
+                            height: 22px;
+                            border-radius: 50%;
+                            background-image: url("../images/person-center/portrait-logo.png");
+                            background-size: cover;
+                            margin-top: 10px;
+                        }
+                        .do-logout{
+                            margin-top: 10px;
+                            margin-left: 5px;
+                            cursor: pointer;
+                            color: @color-primary;
+                            &:hover{
+                                color: @color-primary-hover;
+                            }
                         }
 
                     }
                 }
             }
         }
-        .header-body{
+        .header-body {
             background-color: @bg-content;
             .content {
                 position: relative;
@@ -57,7 +80,7 @@
                 text-align: center;
                 color: @color-primary;
                 font-size: 20px;
-                .logo{
+                .logo {
                     position: absolute;
                     left: 0;
                     top: 50%;
@@ -71,27 +94,26 @@
             }
         }
     }
-    .footer{
+    .footer {
         position: relative;
-        .footer-top{
+        .footer-top {
             background-color: @bg-dark;
             font-size: 18px;
-            .content{
+            .content {
                 position: relative;
                 height: 78px;
                 line-height: 78px;
                 width: @warp-width;
                 margin: auto;
                 color: #C59759;
-                div{
+                div {
                     text-align: center;
 
                 }
 
-
             }
         }
-        .footer-bottom{
+        .footer-bottom {
             background: #323232;
             height: 30px;
             line-height: 30px;
