@@ -34,6 +34,7 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     import './less/app.less';
 
     export default {
