@@ -3,9 +3,18 @@
         <div class="header" flex-box="0">
             <div class="header-top">
                 <div class="content" flex>
-                    <div flex-box="1"></div>
-                    <div flex-box="0">客服电话：011-48800211  </div>
-                    <div flex-box="0">登录</div>
+                    <div class="div" flex-box="1"></div>
+                    <div class="div" flex-box="0">客服电话：011-48800211  </div>
+                    <div class="div" flex-box="0" v-if="!userId">登录</div>
+                    <div class="div user" flex-box="0" v-else @click.stop="preLogout">
+                        <span>{{userLoginName}}</span>
+                        <span class="triangle" :class="{'rotate':showLogout}"></span>
+                        <div class="logout" v-show="showLogout"
+                             flex="main:center cross:center">
+                            <span class="head-image"></span>
+                            <span class="do-logout" @click.stop="doLogout">退出</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="header-body">
@@ -16,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div  id="body-warp" flex-box="1">
+        <div id="body-warp" flex-box="1">
             <router-view></router-view>
         </div>
 
@@ -35,9 +44,35 @@
 
 <script>
     import {mapState} from 'vuex';
+    import $api from './tools/api';
+    import {logout} from './tools/operation';
     import './less/app.less';
 
     export default {
-        name: 'app'
+        name: 'app',
+        data(){
+            return {
+                showLogout: false
+            }
+        },
+        computed: mapState([
+            'userLoginName',
+            'userId',
+            'userUuid',
+            'legalPersonMobile'
+        ]),
+        methods: {
+            preLogout(){
+                this.showLogout = !this.showLogout;
+            },
+            doLogout(){
+                $api.post('/user/logout')
+                    .then(data => {
+                        if (data.code == 200) {
+                            logout();
+                        }
+                    });
+            }
+        }
     }
 </script>

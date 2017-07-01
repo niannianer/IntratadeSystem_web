@@ -19,16 +19,22 @@ const state = {
     accountFreezeAmount:0.00,//冻结金额，
     accountCashAmount:0.00,// 可用余额
 
-    /*bank info */
+    /*user bank  */
 
     bankUserCardNo:'',//银行卡
     bankUserPhone:'',//绑卡手机
-    bank_code:'',
+    bankUserIDCardNo:'',
+    bankUserName:'',
+    baofooCardId:'',
+
+    /*bank info*/
     bank_name:'',
-    bank_full_name:'',
-    bank_no:'',
-    perday_limit:'',
     single_limit:'',
-    single_limit_value:''
+    bank_full_name:'',
+    perday_limit:'',
+    bank_code:'',
+    single_limit_value:'',
+    bank_no:''
+
 };
 export default state;

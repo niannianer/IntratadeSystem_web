@@ -15,16 +15,25 @@ mutations.setBaofooInfo = (state, data) => {
 
     }
 };
-// 银行卡限额信息
-mutations.setBankInfo = (state, data) => {
-    if (data && data.bank_code) {
+
+// 账户银行卡
+mutations.setBankUser = (state, data) => {
+    if (data && data.baofooCardId) {
+
         Object.keys(state).forEach(key=>{
             if (data.hasOwnProperty(key)) {
                 state[key] = data[key];
             }
         });
-
     }
+};
+// 银行卡限额信息
+mutations.setBankInfo = (state, data) => {
+    Object.keys(state).forEach(key=>{
+        if (data.hasOwnProperty(key)) {
+            state[key] = data[key];
+        }
+    });
 };
 // 个人信息
 mutations.setUserInfo = (state, data) => {
