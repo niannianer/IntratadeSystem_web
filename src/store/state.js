@@ -3,25 +3,24 @@
  */
 'use strict'
 const state = {
-    userVerifyStatus: 0, //认证状态
-    userVerifyStatusDesc:'',
-    userUuid:'',// uid
+   /*user info*/
     userId:'',
-    investorRiskScore:0,
-    investorGender:'', //gender
-    investorIdCardNo:'',// ID card
-    investorMobile:'',// mobile
-    investorRealName:'',// realname,
-    isEligibleInvestor:0,
-    investorRiskType:0,
-    investorRiskLevel:0, //
-    investorRiskLevelDesc:'',
-    investorType:'',
-    investorTypeDesc:'',
-    investorGenderDesc:'',
+    issuerEmail:'',
+    issuerName:'',
+    legalPersonName:'',
+    legalPersonIdCardNo:'',
+    legalPersonMobile:'',
+    userLoginName:'',
+    userType:'',
+    userUuid:'',
+
+    /*baofoo info*/
     accountTotalAssets:0.00, //总资产
-    accountTotalInterests:0.00,//收益总额，
-    accountCashAmount:0.00,// 可提现金额
+    accountFreezeAmount:0.00,//冻结金额，
+    accountCashAmount:0.00,// 可用余额
+
+    /*bank info */
+
     bankUserCardNo:'',//银行卡
     bankUserPhone:'',//绑卡手机
     bank_code:'',

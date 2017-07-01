@@ -20,4 +20,6 @@ new Vue({
     store,
     render: h => h(App)
 });
+store.dispatch('getUserInfo');
+store.dispatch('getBaofooInfo');
 

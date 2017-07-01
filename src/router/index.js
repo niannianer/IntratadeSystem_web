@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import {logout} from '../tools/operation';
 Vue.use(Router)
 import {setTitle} from '../tools/operation';
-
 import Login from '../containers/Login';
 import Menus from '../containers/Menus';
 import PersonalCenter from '../containers/PersonalCenter';
@@ -26,6 +25,7 @@ let routes = [
     {
         path:'/menus',
         name:'menus',
+        redirect:'/menus/personal-center',
         component:Menus,
         meta: {
             title: '菜单'
@@ -59,13 +59,32 @@ let routes = [
         ]
     }
 ];
-
+let beforeEach = ((to, from, next) => {
+    if (store.state.userId) {
+        next()
+    } else {
+        store.dispatch('getUserInfo')
+            .then(data => {
+                if (data.code == '401') {
+                    logout();
+                } else {
+                    next()
+                }
+            });
+        store.dispatch('getBaofooInfo');
+    }
+})
 routes.map(route => {
     route.beforeEnter = (to, from, next)=>{
         let {meta} = to;
         let {title} = meta;
         setTitle(title);
-        next();
+        if (!route.meta.login) {
+            return  beforeEach(to, from, next);
+        }else {
+            next();
+        }
+
 
     };
 });
