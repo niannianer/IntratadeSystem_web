@@ -131,6 +131,7 @@
                 $api.post('/user/login', param)
                     .then(data => {
                         this.loading = false;
+                        this.loginText = '登录';
                         if (data.code == 1004) {
                             this.imageCode = data.data.imageCode;
                             this.errInfo = data.msg;

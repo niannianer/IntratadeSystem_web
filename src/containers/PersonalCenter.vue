@@ -35,7 +35,7 @@
                     </div>
                     <div class="info-item" flex>
                         <span>绑银行卡</span>
-                        <p>{{bank_code}}</p>
+                        <p>{{bank_full_name}}</p>
                         <div class="btn-part">
                             <!--<div  class="butn">立即绑卡</div>-->
                         </div>
@@ -80,7 +80,7 @@
             'accountCashAmount',
             'userId',
             'userLoginName',
-            'bank_code'
+            'bank_full_name'
         ]),
         methods: {},
         destroyed(){
