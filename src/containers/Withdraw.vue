@@ -42,8 +42,15 @@
                     <div class="verify-code" flex>
                         <input type="text" placeholder="请输入手机验证码">
                         <button>获取验证码</button>
+                       <!-- <button class="waitting">已发送(59s)</button>-->
                     </div>
                     <p class="tip">验证码发送到手机186****5678</p>
+                </div>
+            </div>
+            <div class="item" flex>
+                <p class="item-title" flex-box="0"></p>
+                <div flex-box="1" class="item-content">
+                   <button class="butn">提现</button>
                 </div>
             </div>
         </div>
