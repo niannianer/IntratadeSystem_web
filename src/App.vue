@@ -12,7 +12,7 @@
                         <div class="logout" v-show="showLogout"
                              flex="main:center cross:center">
                             <span class="head-image"></span>
-                            <span class="do-logout">退出</span>
+                            <span class="do-logout" @click.stop="doLogout">退出</span>
                         </div>
                     </div>
                 </div>
@@ -44,6 +44,8 @@
 
 <script>
     import {mapState} from 'vuex';
+    import $api from './tools/api';
+    import {logout} from './tools/operation';
     import './less/app.less';
 
     export default {
@@ -62,6 +64,14 @@
         methods: {
             preLogout(){
                 this.showLogout = !this.showLogout;
+            },
+            doLogout(){
+                $api.post('/user/logout')
+                    .then(data => {
+                        if (data.code == 200) {
+                            logout();
+                        }
+                    });
             }
         }
     }
