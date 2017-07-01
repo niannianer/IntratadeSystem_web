@@ -14,15 +14,17 @@
                 <p class="category">可用余额(元)</p>
             </div>
             <div class="btn-part" flex-box="1" flex="dir:top">
-                <div class="butn">充值</div>
-                <div class="butn">提现</div>
+                <router-link class="butn" :to="{path:'/menus/recharge'}"
+                             active-class="menu-active">充值</router-link>
+                <router-link class="butn" :to="{path:'/menus/withdraw'}"
+                             active-class="menu-active">提现</router-link>
             </div>
         </div>
         <div class="info-center" flex="dir:top">
             <div flex-box="1" flex>
                 <div class="info-left right-line" flex-box="0">
                     <img src="../images/person-center/portrait-logo.png" alt="portrait-logo">
-                    <p>ID 34567890</p>
+                    <p>ID{{userId}}</p>
                 </div>
                 <div class="info-right" flex-box="1">
                     <div class="info-item" flex>
@@ -33,12 +35,12 @@
                     </div>
                     <div class="info-item" flex>
                         <span>绑银行卡</span>
-                        <p>00000000000000000000000000</p>
+                        <p>{{bank_code}}</p>
                         <div class="btn-part">
-                            <div  class="butn">立即绑卡</div>
+                            <!--<div  class="butn">立即绑卡</div>-->
                         </div>
                     </div>
-                    <div class="info-item" flex>
+                <!--    <div class="info-item" flex>
                         <span>待还总金额</span>
                         <p>898989</p>
                         <div class="btn-part">
@@ -51,7 +53,7 @@
                         <div class="btn-part">
                             <div  class="butn">查看详情</div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="tip" flex-box="0">
@@ -71,10 +73,6 @@
             return {}
         },
         created(){
-           /* $api.get('/account/getAccountBaofoo')
-                .then((msg)=>{
-                    console.log(msg);
-                })*/
         },
         computed: mapState([
             'accountTotalAssets',
