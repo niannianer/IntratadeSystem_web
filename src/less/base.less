@@ -41,6 +41,10 @@ button {
     font-family: inherit;
     cursor: pointer;
     border: none;
+    &:active,&:focus{
+        border: none;
+        outline: none;
+    }
 }
 
 input, textarea {
@@ -97,8 +101,21 @@ body {
     color: #fff;
     background: @bg-gradient;
     border-radius: 4px;
+    border: none;
     &:disabled{
         color: #aaa;
+    }
+    &:active,&:focus,&:hover{
+        border: none;
+        outline: none;
+        background: linear-gradient(to bottom, #ebaf50 0%, #734712 100%);
+        box-shadow: none;
+    }
+    &:active{
+        border: none;
+        outline: none;
+        background: linear-gradient(to bottom, #ebb51b 0%, #735118 100%);
+        box-shadow: none;
     }
 }
 

@@ -19,9 +19,11 @@ const state = {
     investorType:'',
     investorTypeDesc:'',
     investorGenderDesc:'',
+    /*baofoo info*/
     accountTotalAssets:0.00, //总资产
-    accountTotalInterests:0.00,//收益总额，
-    accountCashAmount:0.00,// 可提现金额
+    accountFreezeAmount:0.00,//冻结金额，
+    accountCashAmount:0.00,// 可用余额
+
     bankUserCardNo:'',//银行卡
     bankUserPhone:'',//绑卡手机
     bank_code:'',
