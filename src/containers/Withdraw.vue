@@ -1,6 +1,8 @@
 <template>
-    <div class="withdraw">
-        Withdraw
+    <div class="withdraw" flex="dir:top">
+        <div class="title">
+            提现
+        </div>
     </div>
 </template>
 

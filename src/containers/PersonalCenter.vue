@@ -71,10 +71,10 @@
             return {}
         },
         created(){
-            $api.get('/account/getAccountBaofoo')
+           /* $api.get('/account/getAccountBaofoo')
                 .then((msg)=>{
                     console.log(msg);
-                })
+                })*/
         },
         computed: {},
         methods: {},
