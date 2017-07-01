@@ -7,7 +7,7 @@ const actions = {};
 import $api from '../tools/api';
 // 个人信息
 let getUserInfo = () => {
-    return $api.get('/account/getAccountBaofoo');
+    return $api.get('/user/getUserInfo');
 };
 actions.getUserInfo = ({commit}) => {
     return getUserInfo()
@@ -22,7 +22,7 @@ actions.getUserInfo = ({commit}) => {
 let getBaofooInfo = () => {
     return $api.get('/account/getAccountBaofoo');
 };
-actions.getUserInfo = ({commit}) => {
+actions.getBaofooInfo = ({commit}) => {
     return getBaofooInfo()
         .then(data => {
             if (data.code == 200) {

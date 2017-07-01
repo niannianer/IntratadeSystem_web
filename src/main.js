@@ -21,4 +21,5 @@ new Vue({
     render: h => h(App)
 });
 store.dispatch('getUserInfo');
+store.dispatch('getBaofooInfo');
 

@@ -37,7 +37,7 @@
                 <div class="err-info">{{errInfo}}</div>
 
                 <div class="btn-warp">
-                    <button class="btn-primary btn-login" @click.stop="login">登录</button>
+                    <button class="btn-primary btn-login" @click.stop="login">{{loginText}}</button>
                 </div>
 
 
@@ -58,7 +58,9 @@
                 userLoginPassword: '',
                 imageCode: '',
                 inputCode: '',
-                errInfo: ''
+                errInfo: '',
+                loginText: '登录',
+                loading: false
             }
         },
         created(){
@@ -95,9 +97,9 @@
                     return false;
                 }
                 let userLoginName = this.userLoginName;
-                $api.get('/user/changeImageCode',{userLoginName})
-                    .then(data=>{
-                        if(data.code==200){
+                $api.get('/user/changeImageCode', {userLoginName})
+                    .then(data => {
+                        if (data.code == 200) {
                             this.imageCode = data.data.imageCode;
                         }
                     });
@@ -114,6 +116,9 @@
                     this.errInfo = '请输入图片验证码';
                     return false;
                 }
+                if(this.loading){
+                    return false;
+                }
                 let param = {
                     userLoginName: this.userLoginName,
                     userLoginPassword: this.userLoginPassword
@@ -121,9 +126,11 @@
                 if (this.imageCode) {
                     param.imageCode = this.inputCode;
                 }
+                this.loginText = '正在登录...';
+                this.loading = true;
                 $api.post('/user/login', param)
                     .then(data => {
-
+                        this.loading = false;
                         if (data.code == 1004) {
                             this.imageCode = data.data.imageCode;
                             this.errInfo = data.msg;
@@ -131,7 +138,7 @@
                         }
                         if (data.code == 1110 || data.code == 1109) {
                             this.errInfo = data.msg;
-                            if(data.data&&data.data.imageCode){
+                            if (data.data && data.data.imageCode) {
                                 this.imageCode = data.data.imageCode;
                             }
                             return false;
@@ -141,6 +148,8 @@
                             return false;
                         }
                         if (data.code == 200) {
+                            this.$store.dispatch('getUserInfo');
+                            this.$store.dispatch('getBaofooInfo');
                             this.$router.push('/menus/personal-center')
                         } else {
                             this.errInfo = '系统错误，稍后再试';
