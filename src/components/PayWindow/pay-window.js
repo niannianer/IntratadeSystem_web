@@ -1,5 +1,5 @@
 /**
- * Created by hekk on 2017/6/3.
+ * Created by chuting on 2017/7/1.
  */
 import Vue from 'vue';
 
@@ -10,11 +10,11 @@ let initInstance = () => {
     instance = new PayWindowConstructor({
         el: document.createElement('div')
     });
-    instance.close = () => {
+    /*instance.close = () => {
         window.setTimeout(() => {
             document.body.removeChild(instance.$el);
         });
-    };
+    };*/
 };
 let PayWindow = (options) => {
     if (!instance) {
