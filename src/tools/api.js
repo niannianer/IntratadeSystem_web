@@ -4,12 +4,7 @@
 import 'babel-polyfill';
 
 
-// To add to window
-if (!window.Promise) {
-    window.Promise = Promise;
-}
-
-import 'whatwg-fetch';
+import axios from 'axios';
 import store from '../store';
 import {devUrl, testUrl, productionUrl, nodeTestApi, nodeProductionApi} from './config';
 let serverUrl = devUrl;
@@ -45,8 +40,24 @@ let get = (path, data = {}) => {
     } else {
         url = `${serverUrl + path}?t=${t}&${$query(data)}`
     }
+    return axios({
+        url,
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params:data,
+        withCredentials:true
+    }).then(response=>{
+        console.log(response);
+        if(response.status==200){
+            return response.data;
+        }
+    }).catch(err=>{
+        console.log('err--->')
+    })
 
-    return fetch(url, {
+    /*return fetch(url, {
         method: 'get',
         credentials,
         headers: {
@@ -65,7 +76,7 @@ let get = (path, data = {}) => {
         return data;
     }).catch(err => {
         console.error('error,--->', err);
-    });
+    });*/
 };
 let getNode = (path, data = {}) => {
     let url = `${nodeUrl + path}`
@@ -83,7 +94,27 @@ let post = (path, data = {}) => {
     } else {
         url = `${serverUrl + path}`;
     }
-    return fetch(url, {
+
+    return axios({
+        url,
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params:{
+            t:new Date().getTime()
+        },
+        withCredentials:true,
+        data:$query(data)
+    }).then(response=>{
+        if(response.status==200){
+            return response.data;
+        }
+    }).catch(err=>{
+        console.log('err--->')
+    })
+
+    /*return fetch(url, {
         method: 'post',
         credentials,
         headers: {
@@ -110,7 +141,7 @@ let post = (path, data = {}) => {
         return data;
     }).catch(err => {
         console.error('error,--->', err);
-    });
+    });*/
 };
 let postNode = (path, data = {}) => {
     let url = `${nodeUrl + path}`;
