@@ -51,8 +51,9 @@ export let submitRecharge = (params) => {
     let pageUrl = `${baofooCallUrl}/baofoo/h5/notification/recharge?backUrl=${backUrl}`;
     let form = document.createElement('form');
     form.setAttribute('method', 'post');
-    form.setAttribute('action', baofooRecharge + 'cerPayRecharge.do');
+    form.setAttribute('action', baofooRecharge + 'recharge.do');
     form.setAttribute('name', 'baofoo');
+    form.setAttribute('target', '_KingGoldBlank');
     let input = document.createElement('input');
     input.setAttribute('name', 'merchant_id');
     input.setAttribute('type', 'hidden');

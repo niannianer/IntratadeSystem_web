@@ -9,7 +9,16 @@ import Menus from '../containers/Menus';
 import PersonalCenter from '../containers/PersonalCenter';
 import Recharge  from '../containers/Recharge';
 import Withdraw from '../containers/Withdraw';
+import Blank from '../containers/Blank';
 let routes = [
+    {
+         path:'/blank',
+        component:Blank,
+        meta: {
+            title: '跳转中...',
+            login: true
+        }
+    },
     {
         path:'/',
         redirect:'/menus/personal-center'
@@ -20,7 +29,7 @@ let routes = [
         meta: {
             title: '登录',
             login: true
-        },
+        }
     },
     {
         path:'/menus',
