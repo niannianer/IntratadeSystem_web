@@ -19,7 +19,7 @@ console.log(env);
 const config = {
     entry: {
         'ventor': ['vue', 'vue-router', 'vuex','bootstrap-vue'],
-        'tools': ['babel-polyfill', 'whatwg-fetch'],
+        'tools': ['babel-polyfill', 'axios'],
         'main': './src/main.js'
     },
     output: {
