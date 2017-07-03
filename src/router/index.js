@@ -12,55 +12,55 @@ import Withdraw from '../containers/Withdraw';
 import Blank from '../containers/Blank';
 let routes = [
     {
-         path:'/blank',
-        component:Blank,
+        path: '/blank',
+        component: Blank,
         meta: {
             title: '跳转中...',
             login: true
         }
     },
     {
-        path:'/',
-        redirect:'/menus/personal-center'
+        path: '/',
+        redirect: '/menus/personal-center'
     },
     {
-        path:'/login',
-        component:Login,
+        path: '/login',
+        component: Login,
         meta: {
             title: '登录',
             login: true
         }
     },
     {
-        path:'/menus',
-        name:'menus',
-        redirect:'/menus/personal-center',
-        component:Menus,
+        path: '/menus',
+        name: 'menus',
+        redirect: '/menus/personal-center',
+        component: Menus,
         meta: {
             title: '菜单'
 
         },
-        children:[
+        children: [
             {
-                path:'personal-center',
-                name:'personal-center',
-                component:PersonalCenter,
+                path: 'personal-center',
+                name: 'personal-center',
+                component: PersonalCenter,
                 meta: {
                     title: '个人中心'
                 },
             },
             {
-                path:'recharge',
-                name:'recharge',
-                component:Recharge,
+                path: 'recharge',
+                name: 'recharge',
+                component: Recharge,
                 meta: {
                     title: '充值'
                 }
             },
             {
-                path:'withdraw',
-                name:'withdraw',
-                component:Withdraw,
+                path: 'withdraw',
+                name: 'withdraw',
+                component: Withdraw,
                 meta: {
                     title: '提现'
                 }
@@ -85,18 +85,34 @@ let beforeEach = ((to, from, next) => {
     }
 })
 routes.map(route => {
-    route.beforeEnter = (to, from, next)=>{
+    route.beforeEnter = (to, from, next) => {
         let {meta} = to;
         let {title} = meta;
         setTitle(title);
         if (!route.meta.login) {
-            return  beforeEach(to, from, next);
-        }else {
+            return beforeEach(to, from, next);
+        } else {
             next();
         }
 
 
     };
+    if (route.children) {
+        route.children.map(child => {
+            child.beforeEnter = (to, from, next) => {
+                let {meta} = to;
+                let {title} = meta;
+                setTitle(title);
+                if (!child.meta.login) {
+                    return beforeEach(to, from, next);
+                } else {
+                    next();
+                }
+
+
+            };
+        });
+    }
 });
 routes.push({
     path: '*',

@@ -4,8 +4,8 @@
             <div class="title">登录</div>
             <div class="form">
                 <div class="form-item" flex>
-                    <label flex-box="0" for="email">
-                        <img class="icon" src="../images/login/password.png"/>
+                    <label flex-box="0" for="email" flex="cross:center">
+                        <img class="icon" src="../images/login/icon-email.png"/>
                     </label>
                     <input type="email" id="email"
                            v-model.trim="userLoginName"
@@ -14,7 +14,7 @@
 
                 <div class="form-item" flex>
                     <label flex-box="0" for="password">
-                        <img class="icon" src="../images/login/password.png"/>
+                        <img class="icon" src="../images/login/icon-password.png"/>
                     </label>
                     <input type="password" id="password"
                            v-model.trim="userLoginPassword"
