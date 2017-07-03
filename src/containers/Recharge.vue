@@ -94,6 +94,7 @@
                                 let params = data.data || {};
                                 params.amount = this.rechargeMoney;
                                 params.userId = this.$store.state.userId;
+                                submitRecharge(params);
                                 PayWindow({
                                     callback:(result)=>{
                                         if(result == 0){
@@ -118,11 +119,12 @@
                                             
                                         }else{
                                             //未完成或者“×”
+                                            //测试 调用查询接口触发更新
+                                            $api.get('/trade/rechargeStatus', {orderBillCode:params.orderBillCode});
                                             this.$router.go(0);
                                         }
                                     }
                                 });
-                                submitRecharge(params);
                             } else {
                                 newWind.close();
                                 Toast(data.msg);
