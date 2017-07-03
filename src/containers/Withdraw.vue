@@ -29,8 +29,7 @@
             <div class="item" flex>
                 <p class="item-title" flex-box="0">提现金额</p>
                 <div flex-box="1" class="item-content">
-                    <input type="text" placeholder="请输入提现金额" v-model="amount" @input="checkAmount">元
-                    <p class="red">{{checkAmountText}}</p>
+                    <input type="text" placeholder="请输入提现金额" v-model="amount" >元
                 </div>
             </div>
             <div class="item" flex>
@@ -56,15 +55,14 @@
             <div class="item paypass" flex>
                 <p class="item-title" flex-box="0">交易密码</p>
                 <div flex-box="1" class="item-content">
-                    <input type="password" maxlength="6" placeholder="请输入交易密码" v-model="paypass" @input="checkPayPass">
-                    <p class="red">{{checkPayPassText}}</p>
+                    <input type="password" maxlength="6" placeholder="请输入交易密码" v-model="paypass" >
+                    <p class="red">{{erroMsg}}</p>
                 </div>
             </div>
             <div class="item" flex>
                 <p class="item-title" flex-box="0"></p>
                 <div flex-box="1" class="item-content">
-                   <button class="butn" :class="{'disable':clickState}" :disabled="clickState" @click.stop="withdraw">提现</button>
-                    <p class="red">{{withdrawMsg}}</p>
+                   <button class="butn"  @click.stop="withdraw">提现</button>
                 </div>
             </div>
         </div>
@@ -88,13 +86,9 @@
             return {
                 imgUrls,
                 bankImg:'',
-                withdrawMsg:'',
                 amount:'',
-                checkAmountText:'',
                 paypass:'',
-                checkPayPassText:'',
-                amountState:false,
-                paypassState:false
+                erroMsg:''
             }
         },
         created(){
@@ -109,14 +103,15 @@
                 }
             }
         },
-        computed: {
-            ...mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit']),
-            clickState(){
-                return !(this.paypassState&&this.amountState);
-            }
-        },
+        computed:mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit']),
         methods: {
             withdraw(){
+                if(!this.checkAmount()){
+                    return false;
+                }
+                if(!this.checkPayPass()){
+                    return false;
+                }
                 $api.post('/trade/withdraw',{
                     amount:this.amount,
                     userPayPassword:this.paypass
@@ -125,42 +120,37 @@
                         if(resp.code == 200){
                             this.$router.push('/menus/person-center');
                         }else{
-                            this.withdrawMsg = resp.msg;
+                            this.erroMsg = resp.msg;
                         }
                     })
             },
             checkAmount(){
                 if(!this.amount){
-                    this.amountState = false;
-                    this.checkAmountText = '';
+                    this.erroMsg = '';
                     return false;
                 }
                 if(isNaN(this.amount)){
-                    this.checkAmountText = '提现金额必须为数字';
-                    this.amountState = false;
+                    this.erroMsg = '提现金额必须为数字';
                     return false;
                 }
                 if(parseFloat(this.amount)<=0){
-                    this.checkAmountText = '提现金额需大于0元';
-                    this.amountState = false;
+                    this.erroMsg = '提现金额需大于0元';
                     return false;
                 }
-                this.checkAmountText = '';
-                this.amountState = true;
+                this.erroMsg = '';
+                return true;
             },
             checkPayPass(){
                 if(!this.paypass){
-                    this.checkPayPassText = '交易密码不能为空';
-                    this.paypassState = false;
+                    this.erroMsg = '交易密码不能为空';
                     return false;
                 }
                 if(this.paypass.length <6){
-                    this.checkPayPassText = '交易密码为6位';
-                    this.paypassState = false;
+                    this.erroMsg = '交易密码为6位';
                     return false;
                 }
-                this.checkPayPassText = '';
-                this.paypassState = true;
+                this.erroMsg = '';
+                return true;
             }
         },
         destroyed(){
