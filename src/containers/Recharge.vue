@@ -1,8 +1,8 @@
 <template>
     <div class="recharge">
-        <div class="recharge-tabs">
-            <div class="tab" :class="{active:tab == 1}" @click.stop="tab = 1">网上银行</div>
-            <div class="tab" :class="{active:tab == 2}" @click.stop="tab = 2">快捷支付</div>
+        <div class="recharge-tabs" flex>
+            <!-- <div class="tab" flex-box="1" :class="{active:tab == 1}" @click.stop="tab = 1">网上银行</div> -->
+            <div class="tab" flex-box="1" :class="{active:tab == 2}">快捷支付</div>
         </div>
         <div class="recharge-content">
             <div class="recharge-pay" v-if="!status">
@@ -55,7 +55,7 @@
         name: 'recharge',
         data(){
             return {
-                tab:1,
+                tab:2,
                 way:['网银支付','快捷充值'],
                 status:0,
                 complete:true,
@@ -92,20 +92,31 @@
                                 params.userId = this.$store.state.userId;
                                 PayWindow({
                                     callback:(result)=>{
-                                        this.status = 1;
-                                        this.complete = true;
-                                        /*$api.post('/trade/rechargeStatus', {amount:this.rechargeMoney})
-                                            .then(data => {
-                                                this.status = 1;
-                                                if (data.code == 200) {
-                                                    //充值成功
-                                                    this.complete = true;
-                                                } else {
-                                                    Toast(data.msg);
-                                                    this.complete = false;
-                                                }
-                                            });*/
-                                        
+                                        if(result == 1){
+                                            //未完成
+                                            submitRecharge(params);
+                                        }else{
+                                            //已完成或者“×”
+                                            $api.get('/trade/rechargeStatus', {orderBillCode:params.orderBillCode})
+                                                .then(data => {
+                                                    if (data.code == 200) {
+                                                        if(data.data.status == 0){
+                                                            //处理中
+                                                            Toast('处理中')
+                                                        }else if(data.data.status == 1){
+                                                            //成功
+                                                            this.status = 1;
+                                                            this.complete = true;
+                                                        }/*else if(data.data.status == 2){
+                                                            //充值失败
+                                                        }*/
+                                                    } else {
+                                                        Toast(data.msg);
+                                                        this.status = 1;
+                                                        this.complete = false;
+                                                    }
+                                                });
+                                        }
                                     }
                                 });
                                 submitRecharge(params);
@@ -115,7 +126,7 @@
                             }
                         });
                 }else{
-                   //网银
+                   //网银暂无
                 }
             },
             again(){
@@ -131,7 +142,6 @@
                     if (this.rechargeMoney) {
                         this.disabled = false;
                     }
-                    console.log(this.single_limit_value)
                     if (parseFloat(this.rechargeMoney) > this.single_limit_value) {
                         Toast('充值金额不能大于单笔限额，请重新输入');
                         this.disabled = true;

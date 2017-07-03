@@ -10,11 +10,11 @@ let initInstance = () => {
     instance = new PayWindowConstructor({
         el: document.createElement('div')
     });
-    instance.close = () => {
+    /*instance.close = () => {
         window.setTimeout(() => {
             document.body.removeChild(instance.$el);
         });
-    };
+    };*/
 };
 let PayWindow = (options) => {
     if (!instance) {
@@ -22,9 +22,11 @@ let PayWindow = (options) => {
     }
     document.body.appendChild(instance.$el);
     instance.callback = (result) => {
-        window.setTimeout(() => {
+        if(result != 1){
+            window.setTimeout(() => {
             document.body.removeChild(instance.$el);
         });
+        }
         if (options.callback) {
             options.callback(result);
         }
