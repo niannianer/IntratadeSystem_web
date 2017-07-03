@@ -1,5 +1,5 @@
 /**
- * Created by hekk on 2017/6/3.
+ * Created by chuting on 2017/7/1.
  */
 import Vue from 'vue';
 
@@ -22,11 +22,9 @@ let PayWindow = (options) => {
     }
     document.body.appendChild(instance.$el);
     instance.callback = (result) => {
-        if(result != 1){
-            window.setTimeout(() => {
+        window.setTimeout(() => {
             document.body.removeChild(instance.$el);
         });
-        }
         if (options.callback) {
             options.callback(result);
         }

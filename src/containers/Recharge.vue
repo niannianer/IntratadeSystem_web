@@ -17,11 +17,15 @@
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
             </div>
             <div class="recharge-success" v-else>
-                <div class="success-icon" flex="main:center" v-if="complete">
+                <div class="success-icon" flex="main:center" v-if="complete == 1">
                     <div class="img"><img src="../images/icon-success.png" alt=""></div>
                     <div>充值成功！</div>
                 </div>
-                <div class="success-icon" flex="main:center" v-else>
+                <div class="success-icon" flex="main:center" v-if="complete == 0">
+                    <div class="img"><img src="../images/icon-error.png" alt=""></div>
+                    <div>充值处理中</div>
+                </div>
+                <div class="success-icon" flex="main:center" v-if="complete == 2">
                     <div class="img"><img src="../images/icon-error.png" alt=""></div>
                     <div>充值失败</div>
                 </div>
@@ -58,7 +62,7 @@
                 tab:2,
                 way:['网银支付','快捷充值'],
                 status:0,
-                complete:true,
+                complete:1,
                 rechargeMoney:'',
                 disabled:true
             }
@@ -92,30 +96,29 @@
                                 params.userId = this.$store.state.userId;
                                 PayWindow({
                                     callback:(result)=>{
-                                        if(result == 1){
-                                            //未完成
-                                            submitRecharge(params);
-                                        }else{
-                                            //已完成或者“×”
+                                        if(result == 0){
+                                            //已完成
                                             $api.get('/trade/rechargeStatus', {orderBillCode:params.orderBillCode})
                                                 .then(data => {
+                                                    this.status = 1;
                                                     if (data.code == 200) {
                                                         if(data.data.status == 0){
                                                             //处理中
-                                                            Toast('处理中')
+                                                            this.complete = 0;
                                                         }else if(data.data.status == 1){
                                                             //成功
-                                                            this.status = 1;
-                                                            this.complete = true;
+                                                            this.complete = 1;
                                                         }/*else if(data.data.status == 2){
                                                             //充值失败
                                                         }*/
                                                     } else {
-                                                        Toast(data.msg);
-                                                        this.status = 1;
-                                                        this.complete = false;
+                                                        this.complete = 2;
                                                     }
                                                 });
+                                            
+                                        }else{
+                                            //未完成或者“×”
+                                            this.$router.go(0);
                                         }
                                     }
                                 });
