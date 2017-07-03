@@ -2,15 +2,18 @@
     <div class="person-center">
         <div class="fund-center" flex>
             <div class="right-line" flex-box="1">
-                <p class="num">{{accountTotalAssets}}</p>
+                <p class="num" v-if="mode">{{accountTotalAssets|currencyFormat}}</p>
+                <p class="num" v-else="mode">****</p>
                 <p class="category">募集总额(元)</p>
             </div>
             <div class="right-line" flex-box="1">
-                <p class="num">{{accountFreezeAmount}}</p>
+                <p class="num"  v-if="mode">{{accountFreezeAmount|currencyFormat}}</p>
+                <p class="num" v-else="mode">****</p>
                 <p class="category">冻结金额(元)</p>
             </div>
             <div class="right-line" flex-box="1">
-                <p class="num">{{accountCashAmount}}</p>
+                <p class="num"  v-if="mode">{{accountCashAmount|currencyFormat}}</p>
+                <p class="num" v-else="mode">****</p>
                 <p class="category">可用余额(元)</p>
             </div>
             <div class="btn-part" flex-box="1" flex="dir:top">
@@ -19,12 +22,16 @@
                 <router-link class="butn" :to="{path:'/menus/withdraw'}"
                              active-class="menu-active">提现</router-link>
             </div>
+            <div flex-box="0" class="switch-mode" @click.stop="switchMode">
+                <img src="../images/person-center/eyes-show.png" alt="show" v-show="mode">
+                <img src="../images/person-center/eyes-hide.png" alt="show" v-show="!mode">
+            </div>
         </div>
         <div class="info-center" flex="dir:top">
             <div flex-box="1" flex>
                 <div class="info-left right-line" flex-box="0">
                     <img src="../images/person-center/portrait-logo.png" alt="portrait-logo">
-                    <p>ID{{userId}}</p>
+                   <!-- <p>ID{{userId}}</p>-->
                 </div>
                 <div class="info-right" flex-box="1">
                     <div class="info-item" flex>
@@ -70,9 +77,12 @@
     export default {
         name: 'person-center',
         data(){
-            return {}
+            return {
+                mode:false
+            }
         },
         created(){
+            this.$store.dispatch('getBaofooInfo');
         },
         computed: mapState([
             'accountTotalAssets',
@@ -82,7 +92,11 @@
             'userLoginName',
             'bank_full_name'
         ]),
-        methods: {},
+        methods: {
+            switchMode(){
+                this.mode = !this.mode;
+            }
+        },
         destroyed(){
 
         }
