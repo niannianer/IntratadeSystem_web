@@ -11,9 +11,8 @@ weixin-vue-test:
   only:
     - /^.*test$/
   after_script:
-    - scp -r dist/* web@47.93.35.76:/home/web/webhive/nginx/vue/dist
-    - scp -r html/* web@47.93.35.76:/home/web/webhive/nginx/vue
-    - scp -r html/* web@47.93.35.76:/home/web/webhive/nginx/jq
+    - scp -r dist/* web@47.93.35.76:/home/web/webhive/nginx/web/dist
+    - scp -r html/* web@47.93.35.76:/home/web/webhive/nginx/web
 
 weixin-vue-build:
   cache:
@@ -28,6 +27,5 @@ weixin-vue-build:
   only:
     - build
   after_script:
-    - scp -r dist/* web@47.93.35.76:/home/web/wechat/vue/dist
-    - scp -r html/* web@47.93.35.76:/home/web/wechat/vue
-    - scp -r html/* web@47.93.35.76:/home/web/wechat/jq
+    - scp -r dist/* web@47.93.35.76:/home/web/wechat/web/dist
+    - scp -r html/* web@47.93.35.76:/home/web/wechat/web
