@@ -1,8 +1,8 @@
 <template>
     <div class="recharge">
-        <div class="recharge-tabs">
-            <div class="tab" :class="{active:tab == 1}" @click.stop="tab = 1">网上银行</div>
-            <div class="tab" :class="{active:tab == 2}" @click.stop="tab = 2">快捷支付</div>
+        <div class="recharge-tabs" flex>
+            <!-- <div class="tab" flex-box="1" :class="{active:tab == 1}" @click.stop="tab = 1">网上银行</div> -->
+            <div class="tab" flex-box="1" :class="{active:tab == 2}">快捷支付</div>
         </div>
         <div class="recharge-content">
             <div class="recharge-pay" v-if="!status">
@@ -17,11 +17,15 @@
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
             </div>
             <div class="recharge-success" v-else>
-                <div class="success-icon" flex="main:center" v-if="complete">
+                <div class="success-icon" flex="main:center" v-if="complete == 1">
                     <div class="img"><img src="../images/icon-success.png" alt=""></div>
                     <div>充值成功！</div>
                 </div>
-                <div class="success-icon" flex="main:center" v-else>
+                <div class="success-icon" flex="main:center" v-if="complete == 0">
+                    <div class="img"><img src="../images/icon-error.png" alt=""></div>
+                    <div>充值处理中</div>
+                </div>
+                <div class="success-icon" flex="main:center" v-if="complete == 2">
                     <div class="img"><img src="../images/icon-error.png" alt=""></div>
                     <div>充值失败</div>
                 </div>
@@ -55,10 +59,10 @@
         name: 'recharge',
         data(){
             return {
-                tab:1,
+                tab:2,
                 way:['网银支付','快捷充值'],
                 status:0,
-                complete:true,
+                complete:1,
                 rechargeMoney:'',
                 disabled:true
             }
@@ -92,20 +96,30 @@
                                 params.userId = this.$store.state.userId;
                                 PayWindow({
                                     callback:(result)=>{
-                                        this.status = 1;
-                                        this.complete = true;
-                                        /*$api.post('/trade/rechargeStatus', {amount:this.rechargeMoney})
-                                            .then(data => {
-                                                this.status = 1;
-                                                if (data.code == 200) {
-                                                    //充值成功
-                                                    this.complete = true;
-                                                } else {
-                                                    Toast(data.msg);
-                                                    this.complete = false;
-                                                }
-                                            });*/
-                                        
+                                        if(result == 0){
+                                            //已完成
+                                            $api.get('/trade/rechargeStatus', {orderBillCode:params.orderBillCode})
+                                                .then(data => {
+                                                    this.status = 1;
+                                                    if (data.code == 200) {
+                                                        if(data.data.status == 0){
+                                                            //处理中
+                                                            this.complete = 0;
+                                                        }else if(data.data.status == 1){
+                                                            //成功
+                                                            this.complete = 1;
+                                                        }/*else if(data.data.status == 2){
+                                                            //充值失败
+                                                        }*/
+                                                    } else {
+                                                        this.complete = 2;
+                                                    }
+                                                });
+                                            
+                                        }else{
+                                            //未完成或者“×”
+                                            this.$router.go(0);
+                                        }
                                     }
                                 });
                                 submitRecharge(params);
@@ -115,7 +129,7 @@
                             }
                         });
                 }else{
-                   //网银
+                   //网银暂无
                 }
             },
             again(){
@@ -131,7 +145,6 @@
                     if (this.rechargeMoney) {
                         this.disabled = false;
                     }
-                    console.log(this.single_limit_value)
                     if (parseFloat(this.rechargeMoney) > this.single_limit_value) {
                         Toast('充值金额不能大于单笔限额，请重新输入');
                         this.disabled = true;
