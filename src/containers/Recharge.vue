@@ -1,8 +1,8 @@
 <template>
     <div class="recharge">
         <div class="recharge-tabs" flex>
-            <!-- <div class="tab" flex-box="1" :class="{active:tab == 1}" @click.stop="tab = 1">网上银行</div> -->
-            <div class="tab" flex-box="1" :class="{active:tab == 2}">快捷支付</div>
+            <!-- <div class="tab" flex-box="1" :class="{active:tab == 1}" @click.stop="tab = 1">快捷支付</div> -->
+            <div class="tab" flex-box="1" :class="{active:tab == 2}">网上银行</div>
         </div>
         <div class="recharge-content">
             <div class="recharge-pay" v-if="!status">
@@ -60,7 +60,7 @@
         data(){
             return {
                 tab:2,
-                way:['网银支付','快捷充值'],
+                way:['快捷充值','网银支付'],
                 status:0,
                 complete:1,
                 rechargeMoney:'',
