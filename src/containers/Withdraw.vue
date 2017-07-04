@@ -30,7 +30,7 @@
                 <div class="item" flex>
                     <p class="item-title" flex-box="0">提现金额</p>
                     <div flex-box="1" class="item-content">
-                        <input type="text" placeholder="请输入提现金额" v-model.trim="amount" autocomplete="off">元
+                        <input type="text" placeholder="请输入提现金额" v-model.trim="amount" autocomplete="off" @keyup="formAmount">元
                     </div>
                 </div>
                 <div class="item" flex>
@@ -172,6 +172,14 @@
                 }
                 this.erroMsg = '';
                 return true;
+            },
+            formAmount(){
+                setTimeout(()=>{
+                    this.amount = this.amount.replace(/(^\d+\.\d{2})(.+)$/,($1,$2)=>{
+                        return $2;
+                    })
+                },200)
+
             }
         },
         destroyed(){
