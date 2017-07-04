@@ -12,7 +12,7 @@
                 </div>
                 <div class="monery clear com">
                     <div class="left div">充值金额</div>
-                    <div class="left com inputs"><input @keyup="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney"></div>
+                    <div class="left com inputs"><input @input="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney"></div>
                 </div>
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
             </div>
@@ -84,6 +84,10 @@
                     Toast('请输入充值金额');
                     return false;
                 }
+                if (Number(this.rechargeMoney)<0) {
+                    Toast('请输入正确金额');
+                    return false;
+                }
                 if(this.disabled){return false}
                 if(this.tab == 2){
                     //快捷支付
@@ -109,9 +113,10 @@
                                                         }else if(data.data.status == 1){
                                                             //成功
                                                             this.complete = 1;
-                                                        }/*else if(data.data.status == 2){
+                                                        }else if(data.data.status == 2){
                                                             //充值失败
-                                                        }*/
+                                                            this.complete = 2;
+                                                        }
                                                     } else {
                                                         this.complete = 2;
                                                     }
@@ -147,11 +152,11 @@
                     if (this.rechargeMoney) {
                         this.disabled = false;
                     }
-                    if (parseFloat(this.rechargeMoney) > this.single_limit_value) {
+                    /*if (parseFloat(this.rechargeMoney) > this.single_limit_value) {
                         Toast('充值金额不能大于单笔限额，请重新输入');
                         this.disabled = true;
-                    }
-                }, 200);
+                    }*/
+                }, 0);
             }
         },
         destroyed(){
