@@ -104,7 +104,7 @@
                 }
             }
         },
-        computed:mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit']),
+        computed:mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit','single_limit_value']),
         methods: {
             withdraw(){
                 if(!this.checkAmount()){
