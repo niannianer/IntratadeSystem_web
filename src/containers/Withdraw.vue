@@ -29,7 +29,7 @@
             <div class="item" flex>
                 <p class="item-title" flex-box="0">提现金额</p>
                 <div flex-box="1" class="item-content">
-                    <input type="text" placeholder="请输入提现金额" v-model="amount" >元
+                    <input type="text" placeholder="请输入提现金额" v-model="amount" autocomplete="off">元
                 </div>
             </div>
             <div class="item" flex>
@@ -55,7 +55,7 @@
             <div class="item paypass" flex>
                 <p class="item-title" flex-box="0">交易密码</p>
                 <div flex-box="1" class="item-content">
-                    <input type="password" maxlength="6" placeholder="请输入交易密码" v-model="paypass" >
+                    <input type="password" maxlength="6" placeholder="请输入交易密码" v-model="paypass" autocomplete="off">
                     <p class="red">{{erroMsg}}</p>
                 </div>
             </div>
@@ -127,7 +127,7 @@
             },
             checkAmount(){
                 if(!this.amount){
-                    this.erroMsg = '';
+                    this.erroMsg = '提现金额不能为空';
                     return false;
                 }
                 if(isNaN(this.amount)){
@@ -138,11 +138,11 @@
                     this.erroMsg = '提现金额需大于0元';
                     return false;
                 }
-                if(this.amount>this.accountCashAmount+this.fee){
+                if(parseFloat(this.amount)>parseFloat(this.accountCashAmount+this.fee)){
                     this.erroMsg = '提现金额不可大于可提现金额（含手续费）';
                     return false;
                 }
-                if(this.amount>this.single_limit_value){
+                if(parseFloat(this.amount)>parseFloat(this.single_limit_value)){
                     this.erroMsg = '提现金额不可大于单笔限额';
                     return false;
                 }
