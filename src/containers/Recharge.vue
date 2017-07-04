@@ -12,7 +12,8 @@
                 </div>
                 <div class="monery clear com">
                     <div class="left div">充值金额</div>
-                    <div class="left com inputs"><input @input="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney"></div>
+                    <div class="left com inputs"><input @input="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney" maxlength="12"></div>
+                    <div class="showtab"><span @click.stop="show()">查看充值限额</span></div>
                 </div>
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
             </div>
@@ -52,6 +53,7 @@
     import {mapState} from 'vuex';
     import $api from '../tools/api';
     import PayWindow from '../components/PayWindow';
+    import Quota from '../components/Quota';
     import Toast from '../components/Toast';
     import {submitRecharge, currencyInputValidate} from '../tools/operation';
     let timer = null;
@@ -152,11 +154,10 @@
                     if (this.rechargeMoney) {
                         this.disabled = false;
                     }
-                    /*if (parseFloat(this.rechargeMoney) > this.single_limit_value) {
-                        Toast('充值金额不能大于单笔限额，请重新输入');
-                        this.disabled = true;
-                    }*/
                 }, 0);
+            },
+            show(){
+                Quota();
             }
         },
         destroyed(){
