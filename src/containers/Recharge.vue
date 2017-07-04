@@ -113,8 +113,8 @@
                                                         }else if(data.data.status == 1){
                                                             //成功
                                                             this.complete = 1;
-                                                        }else if(data.data.status == 2){
-                                                            //充值失败
+                                                        }else{
+                                                            //充值失败与取消
                                                             this.complete = 2;
                                                         }
                                                     } else {
