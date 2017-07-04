@@ -3,67 +3,75 @@
         <div class="title">
             提现
         </div>
-        <div class="content">
-            <div class="item" flex>
-                <p class="item-title" flex-box="0">提现银行卡</p>
-                <div flex-box="1" class="item-content">
-                    <div class="bank">
-                        <div class="bank-name">
-                            <img :src="bankImg" class="bank-logo">
-                            <span class="name">{{bank_name}}</span>
-                            <div class="bank-info">{{bankUserCardNo|bankCardNoFormat}}</div>
+        <div v-if="withdrawStatus">
+            <div class="content">
+                <div class="item" flex>
+                    <p class="item-title" flex-box="0">提现银行卡</p>
+                    <div flex-box="1" class="item-content">
+                        <div class="bank">
+                            <div class="bank-name">
+                                <img :src="bankImg" class="bank-logo">
+                                <span class="name">{{bank_name}}</span>
+                                <div class="bank-info">{{bankUserCardNo|bankCardNoFormat}}</div>
+                            </div>
+                        </div>
+                        <div class="bank-info" flex>
+                            <p flex-box="1">限额：单笔{{single_limit}}元</p>
+                            <p flex-box="0">单日{{perday_limit}}元</p>
                         </div>
                     </div>
-                    <div class="bank-info" flex>
-                        <p flex-box="1">限额：单笔{{single_limit}}元</p>
-                        <p flex-box="0">单日{{perday_limit}}元</p>
+                </div>
+                <div class="item" flex>
+                    <p class="item-title" flex-box="0">可提现余额</p>
+                    <div flex-box="1" class="item-content">
+                        <p><span class="high-light">{{accountCashAmount|currencyFormat}}</span>元</p>
+                    </div>
+                </div>
+                <div class="item" flex>
+                    <p class="item-title" flex-box="0">提现金额</p>
+                    <div flex-box="1" class="item-content">
+                        <input type="text" placeholder="请输入提现金额" v-model.trim="amount" autocomplete="off">元
+                    </div>
+                </div>
+                <div class="item" flex>
+                    <p class="item-title" flex-box="0">手续费</p>
+                    <div flex-box="1" class="item-content">
+                        <p>
+                            <span class="high-light">{{fee}}</span>元
+                            <!--<span class="tip">（提现免手续费）</span>-->
+                        </p>
+                    </div>
+                </div>
+                <!--   <div class="item" flex>
+                       <p class="item-title" flex-box="0">手机验证码</p>
+                       <div flex-box="1" class="item-content">
+                           <div class="verify-code" flex>
+                               <input type="text" placeholder="请输入手机验证码">
+                               <button>获取验证码</button>
+                              &lt;!&ndash; <button class="waitting">已发送(59s)</button>&ndash;&gt;
+                           </div>
+                           <p class="tip">验证码发送到手机186****5678</p>
+                       </div>
+                   </div>-->
+                <div class="item paypass" flex>
+                    <p class="item-title" flex-box="0">交易密码</p>
+                    <div flex-box="1" class="item-content">
+                        <input type="password" maxlength="6" placeholder="请输入交易密码" v-model.trim="paypass" autocomplete="off">
+                        <p class="red">{{erroMsg}}</p>
+                    </div>
+                </div>
+                <div class="item" flex>
+                    <p class="item-title" flex-box="0"></p>
+                    <div flex-box="1" class="item-content">
+                        <button class="butn"  @click.stop="withdraw">{{btnMsg}}</button>
                     </div>
                 </div>
             </div>
-            <div class="item" flex>
-                <p class="item-title" flex-box="0">可提现余额</p>
-                <div flex-box="1" class="item-content">
-                    <p><span class="high-light">{{accountCashAmount|currencyFormat}}</span>元</p>
-                </div>
-            </div>
-            <div class="item" flex>
-                <p class="item-title" flex-box="0">提现金额</p>
-                <div flex-box="1" class="item-content">
-                    <input type="text" placeholder="请输入提现金额" v-model="amount" autocomplete="off">元
-                </div>
-            </div>
-            <div class="item" flex>
-                <p class="item-title" flex-box="0">手续费</p>
-                <div flex-box="1" class="item-content">
-                    <p>
-                        <span class="high-light">{{fee}}</span>元
-                        <!--<span class="tip">（提现免手续费）</span>-->
-                    </p>
-                </div>
-            </div>
-         <!--   <div class="item" flex>
-                <p class="item-title" flex-box="0">手机验证码</p>
-                <div flex-box="1" class="item-content">
-                    <div class="verify-code" flex>
-                        <input type="text" placeholder="请输入手机验证码">
-                        <button>获取验证码</button>
-                       &lt;!&ndash; <button class="waitting">已发送(59s)</button>&ndash;&gt;
-                    </div>
-                    <p class="tip">验证码发送到手机186****5678</p>
-                </div>
-            </div>-->
-            <div class="item paypass" flex>
-                <p class="item-title" flex-box="0">交易密码</p>
-                <div flex-box="1" class="item-content">
-                    <input type="password" maxlength="6" placeholder="请输入交易密码" v-model="paypass" autocomplete="off">
-                    <p class="red">{{erroMsg}}</p>
-                </div>
-            </div>
-            <div class="item" flex>
-                <p class="item-title" flex-box="0"></p>
-                <div flex-box="1" class="item-content">
-                   <button class="butn"  @click.stop="withdraw">提现</button>
-                </div>
+        </div>
+        <div v-else="withdrawStatus">
+            <div class="success-icon" flex="main:center">
+                <div class="img"><img src="../images/icon-success.png" alt=""></div>
+                <div>提现成功！</div>
             </div>
         </div>
     </div>
@@ -89,7 +97,9 @@
                 amount:'',
                 paypass:'',
                 erroMsg:'',
-                fee:2
+                fee:2,
+                withdrawStatus:true,
+                btnMsg:'提现'
             }
         },
         created(){
@@ -113,13 +123,15 @@
                 if(!this.checkPayPass()){
                     return false;
                 }
-                $api.post('/trade/withdraw',{
+                this.btnMsg ='提现中。。。';
+                    $api.post('/trade/withdraw',{
                     amount:this.amount,
                     userPayPassword:this.paypass
                 })
                     .then((resp)=>{
+                        this.btnMsg ='提现';
                         if(resp.code == 200){
-                            this.$router.push('/menus/person-center');
+                            this.withdrawStatus = false;
                         }else{
                             this.erroMsg = resp.msg;
                         }
