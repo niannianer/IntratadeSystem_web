@@ -16,8 +16,7 @@
                             </div>
                         </div>
                         <div class="bank-info" flex>
-                            <p flex-box="1">限额：单笔{{single_limit}}元</p>
-                            <p flex-box="0">单日{{perday_limit}}元</p>
+                            <p flex-box="1">限额：单笔{{withdraw_limit}}元</p>
                         </div>
                     </div>
                 </div>
@@ -99,7 +98,9 @@
                 erroMsg:'',
                 fee:2,
                 withdrawStatus:true,
-                btnMsg:'提现'
+                btnMsg:'提现',
+                withdraw_limit:'200万',
+                withdraw_limit_value:2000000
             }
         },
         created(){
@@ -114,7 +115,7 @@
                 }
             }
         },
-        computed:mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit','single_limit_value']),
+        computed:mapState(['bank_code','bank_name','bankUserCardNo','accountCashAmount','single_limit','perday_limit',]),
         methods: {
             withdraw(){
                 if(!this.checkAmount()){
@@ -150,11 +151,11 @@
                     this.erroMsg = '提现金额需大于0元';
                     return false;
                 }
-                if(parseFloat(this.amount)>parseFloat(this.accountCashAmount+this.fee)){
+                if(parseFloat(this.amount)>parseFloat(this.accountCashAmount-this.fee)){
                     this.erroMsg = '提现金额不可大于可提现金额（含手续费）';
                     return false;
                 }
-                if(parseFloat(this.amount)>parseFloat(this.single_limit_value)){
+                if(parseFloat(this.amount)>parseFloat(this.withdraw_limit_value)){
                     this.erroMsg = '提现金额不可大于单笔限额';
                     return false;
                 }
