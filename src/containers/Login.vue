@@ -74,10 +74,10 @@
                     this.errInfo = '请输入用户名';
                     return false;
                 }
-               /* if (!reg.test(this.userLoginName)) {
+                if (!reg.test(this.userLoginName)) {
                     this.errInfo = '邮箱格式不正确';
                     return false;
-                }*/
+                }
                 return true;
 
             },
@@ -87,10 +87,10 @@
                     this.errInfo = '请输入密码';
                     return false;
                 }
-               /* if (!reg.test(this.userLoginPassword)) {
+                if (!reg.test(this.userLoginPassword)) {
                     this.errInfo = '密码为6~20位数字或字母';
                     return false;
-                }*/
+                }
                 return true;
             },
             getImageCode(){
