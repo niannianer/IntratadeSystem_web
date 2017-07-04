@@ -4,7 +4,7 @@
             <div class="right-line" flex-box="1">
                 <p class="num" v-if="mode">{{accountTotalAssets|currencyFormat}}</p>
                 <p class="num" v-else="mode">****</p>
-                <p class="category">募集总额(元)</p>
+                <p class="category">总资产(元)</p>
             </div>
             <div class="right-line" flex-box="1">
                 <p class="num"  v-if="mode">{{accountFreezeAmount|currencyFormat}}</p>

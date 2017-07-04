@@ -126,6 +126,7 @@ export let submitAuthorization = (pUserId) => {
 
 // 输入框校验,提现和充值
 export let currencyInputValidate = (input) => {
+    input = input.replace(/\s+/g, "");
     if (!input) {
         return '';
     }
