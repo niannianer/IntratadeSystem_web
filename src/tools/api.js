@@ -2,10 +2,7 @@
  * Created by hekk on 2017/5/28.
  */
 import 'babel-polyfill';
-
-
 import axios from 'axios';
-import store from '../store';
 import {devUrl, testUrl, productionUrl, nodeTestApi, nodeProductionApi} from './config';
 let serverUrl = devUrl;
 let nodeUrl = nodeTestApi;
@@ -30,15 +27,14 @@ let $query = (data) => {
     return str.join('&');
 };
 let get = (path, data = {}) => {
-    data.callSystemID = '1003';
-    let t = new Date().getTime();
+    data.callSystemID = '1005';
+    data.t = new Date().getTime();
     let url = '';
-    let credentials = 'include';
     if (/http/.test(path)) {
-        url = `${path}?t=${t}&${$query(data)}`;
-        credentials='same-origin';
+        url = `${path}`;
+
     } else {
-        url = `${serverUrl + path}?t=${t}&${$query(data)}`
+        url = `${serverUrl + path}`
     }
     return axios({
         url,
@@ -46,37 +42,16 @@ let get = (path, data = {}) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        params:data,
-        withCredentials:true
-    }).then(response=>{
-        console.log(response);
-        if(response.status==200){
+        params: data,
+        withCredentials: true
+    }).then(response => {
+        if (response.status == 200) {
             return response.data;
         }
-    }).catch(err=>{
+    }).catch(err => {
         console.log('err--->')
     })
 
-    /*return fetch(url, {
-        method: 'get',
-        credentials,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }).then(response => {
-        if (response.status == 200) {
-            return response.json()
-        }
-        if (response.status == 503) {
-            return {};
-        }
-        return {};
-    }).then(data => {
-        return data;
-    }).catch(err => {
-        console.error('error,--->', err);
-    });*/
 };
 let getNode = (path, data = {}) => {
     let url = `${nodeUrl + path}`
@@ -84,13 +59,10 @@ let getNode = (path, data = {}) => {
 };
 import  {logout} from './operation';
 let post = (path, data = {}) => {
-    data.callSystemID = '1003';
-    let t = new Date().getTime();
+    data.callSystemID = '1005';
     let url = '';
-    let credentials = 'include';
     if (/http/.test(path)) {
-        url = `${path}?t=${t}`;
-        credentials='same-origin';
+        url = `${path}`;
     } else {
         url = `${serverUrl + path}`;
     }
@@ -101,47 +73,26 @@ let post = (path, data = {}) => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        params:{
-            t:new Date().getTime()
+        params: {
+            t: new Date().getTime()
         },
-        withCredentials:true,
-        data:$query(data)
-    }).then(response=>{
-        if(response.status==200){
-            return response.data;
-        }
-    }).catch(err=>{
-        console.log('err--->')
-    })
-
-    /*return fetch(url, {
-        method: 'post',
-        credentials,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: $query(data)
+        withCredentials: true,
+        data: $query(data)
     }).then(response => {
         if (response.status == 200) {
-            return response.json()
-        }
-        if (response.status == 503) {
+            return response.data;
+        } else {
             return {};
         }
-
-        return {};
     }).then(data => {
         if (data.code == 401) {
-            store.dispatch('getAccountBaofoo');
-            store.dispatch('getBankInfo');
-            store.dispatch('getUserInfo');
             logout();
         }
         return data;
     }).catch(err => {
-        console.error('error,--->', err);
-    });*/
+        console.log('err--->')
+    })
+
 };
 let postNode = (path, data = {}) => {
     let url = `${nodeUrl + path}`;

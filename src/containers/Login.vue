@@ -1,7 +1,6 @@
 <template>
     <div class="login">
         <div class="form-warp">
-            <div class="title">登录</div>
             <div class="form">
                 <div class="form-item" flex>
                     <label flex-box="0" for="email" flex="cross:center">
@@ -40,6 +39,8 @@
                     <button class="btn-primary btn-login" @click.stop="login">{{loginText}}</button>
                 </div>
 
+                <div class="footer-info">北京中冀汇通天下互联网科技有限公司提供服务</div>
+
 
             </div>
         </div>
@@ -70,26 +71,26 @@
             checkEmail(){
                 let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                 if (!this.userLoginName) {
-                    this.errInfo = '请输入登录邮箱';
+                    this.errInfo = '请输入用户名';
                     return false;
                 }
-                if (!reg.test(this.userLoginName)) {
+               /* if (!reg.test(this.userLoginName)) {
                     this.errInfo = '邮箱格式不正确';
                     return false;
-                }
+                }*/
                 return true;
 
             },
             checkPassword(){
                 let reg = /^\w{6,20}$/
                 if (!this.userLoginPassword) {
-                    this.errInfo = '请输入登录密码';
+                    this.errInfo = '请输入密码';
                     return false;
                 }
-                if (!reg.test(this.userLoginPassword)) {
+               /* if (!reg.test(this.userLoginPassword)) {
                     this.errInfo = '密码为6~20位数字或字母';
                     return false;
-                }
+                }*/
                 return true;
             },
             getImageCode(){
@@ -145,7 +146,7 @@
                             return false;
                         }
                         if (data.code == 1103) {
-                            this.errInfo = '该邮箱未注册';
+                            this.errInfo = '用户名或密码错误';
                             return false;
                         }
                         if (data.code == 200) {

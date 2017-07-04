@@ -5,7 +5,7 @@
                 <div class="content" flex>
                     <div class="div" flex-box="1"></div>
                     <div class="div" flex-box="0">客服电话：011-48800211  </div>
-                    <div class="div" flex-box="0" v-if="!userId">登录</div>
+                    <div class="div" flex-box="0" v-if="!userId"></div>
                     <div class="div user" flex-box="0" v-else @click.stop="preLogout">
                         <span>{{userLoginName}}</span>
                         <span class="triangle" :class="{'rotate':showLogout}"></span>

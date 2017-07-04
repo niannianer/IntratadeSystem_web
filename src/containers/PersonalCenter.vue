@@ -78,7 +78,7 @@
         name: 'person-center',
         data(){
             return {
-                mode:false
+                mode:true
             }
         },
         created(){
