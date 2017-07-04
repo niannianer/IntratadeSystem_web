@@ -27,7 +27,7 @@ let $query = (data) => {
     return str.join('&');
 };
 let get = (path, data = {}) => {
-    data.callSystemID = '1003';
+    data.callSystemID = '1005';
     data.t = new Date().getTime();
     let url = '';
     if (/http/.test(path)) {
@@ -59,7 +59,7 @@ let getNode = (path, data = {}) => {
 };
 import  {logout} from './operation';
 let post = (path, data = {}) => {
-    data.callSystemID = '1003';
+    data.callSystemID = '1005';
     let url = '';
     if (/http/.test(path)) {
         url = `${path}`;
