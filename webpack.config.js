@@ -19,7 +19,7 @@ console.log(env);
 const config = {
     entry: {
         'ventor': ['vue', 'vue-router', 'vuex','bootstrap-vue'],
-        'tools': ['babel-polyfill', 'whatwg-fetch'],
+        'tools': ['babel-polyfill', 'axios'],
         'main': './src/main.js'
     },
     output: {
@@ -122,7 +122,7 @@ const config = {
 if (env == 'production' || env == 'test') {
     console.log('------->', env)
     config.devtool = '';
-    config.output.publicPath = 'https://static-test.zj-hf.cn/dist/';
+    config.output.publicPath = '/dist/';
     if (env === 'production') {
         config.output.publicPath = 'https://zj-static.zj-hf.cn/dist/';
     }
