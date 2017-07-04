@@ -36,7 +36,7 @@
                 <p class="item-title" flex-box="0">手续费</p>
                 <div flex-box="1" class="item-content">
                     <p>
-                        <span class="high-light">2</span>元
+                        <span class="high-light">{{fee}}</span>元
                         <!--<span class="tip">（提现免手续费）</span>-->
                     </p>
                 </div>
@@ -88,7 +88,8 @@
                 bankImg:'',
                 amount:'',
                 paypass:'',
-                erroMsg:''
+                erroMsg:'',
+                fee:2
             }
         },
         created(){
@@ -137,6 +138,14 @@
                     this.erroMsg = '提现金额需大于0元';
                     return false;
                 }
+                if(this.amount>this.accountCashAmount+this.fee){
+                    this.erroMsg = '提现金额不可大于可提现金额（含手续费）';
+                    return false;
+                }
+                if(this.amount>this.single_limit_value){
+                    this.erroMsg = '提现金额不可大于单笔限额';
+                    return false;
+                }
                 this.erroMsg = '';
                 return true;
             },
@@ -156,5 +165,8 @@
         destroyed(){
 
         }
+
+
+
     }
 </script>
