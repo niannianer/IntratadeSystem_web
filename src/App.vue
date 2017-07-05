@@ -6,7 +6,9 @@
                     <div class="div" flex-box="1"></div>
                     <div class="div" flex-box="0">客服电话：{{telNumber}}  </div>
                     <div class="div" flex-box="0" v-if="!userId"></div>
-                    <div class="div user" flex-box="0" v-else @click.stop="preLogout">
+                    <div class="div user" flex-box="0"
+                         @mouseleave.stop="hideLogout"
+                         v-else @mouseenter.stop="preLogout">
                         <span>{{userLoginName}}</span>
                         <span class="triangle" :class="{'rotate':showLogout}"></span>
                         <div class="logout" v-show="showLogout"
@@ -67,7 +69,10 @@
         ]),
         methods: {
             preLogout(){
-                this.showLogout = !this.showLogout;
+                this.showLogout = true;
+            },
+            hideLogout(){
+                this.showLogout = false;
             },
             doLogout(){
                 $api.post('/user/logout')
