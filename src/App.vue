@@ -4,7 +4,7 @@
             <div class="header-top">
                 <div class="content" flex>
                     <div class="div" flex-box="1"></div>
-                    <div class="div" flex-box="0">客服电话：011-48800211  </div>
+                    <div class="div" flex-box="0">客服电话：{{telNumber}}  </div>
                     <div class="div" flex-box="0" v-if="!userId"></div>
                     <div class="div user" flex-box="0" v-else @click.stop="preLogout">
                         <span>{{userLoginName}}</span>
@@ -32,7 +32,7 @@
         <div class="footer" flex-box="0">
             <div class="footer-top">
                 <div class="content" flex="box:mean">
-                    <div>客服电话：400-010-0987</div>
+                    <div>客服电话：{{telNumber}}</div>
                     <div>工作日 09:00~18:00</div>
                 </div>
             </div>
@@ -47,12 +47,14 @@
     import $api from './tools/api';
     import {logout} from './tools/operation';
     import './less/app.less';
+    import {telNumber} from './tools/config';
 
     export default {
         name: 'app',
         data(){
             return {
-                showLogout: false
+                showLogout: false,
+                telNumber
             }
         },
         computed: mapState([
