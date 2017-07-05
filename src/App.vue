@@ -36,7 +36,9 @@
                     <div>工作日 09:00~18:00</div>
                 </div>
             </div>
-            <div class="footer-bottom">Copyright © 2016 all rights reserved 中冀投资股份有限公司 版权所有 冀ICP备16024224号</div>
+            <div class="footer-bottom">
+                Copyright © 2017 all rights reserved 北京中冀汇通天下互联网科技有限公司版权所有 京ICP备17013695-1
+            </div>
         </div>
 
     </div>
