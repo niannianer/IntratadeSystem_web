@@ -67,7 +67,7 @@ export let submitRecharge = (params) => {
     form.appendChild(input);
     let xml = '<?xml version="1.0" encoding="UTF-8"?><custody_req><merchant_id>'+merchant_id+'</merchant_id><user_id>' +
         userId + '</user_id><order_id>' + orderBillCode + '</order_id><amount>' + amount +
-        '</amount><fee>0</fee><fee_taken_on>1</fee_taken_on><additional_info>' + additionalInfo +
+        '</amount><fee>0</fee><fee_taken_on>2</fee_taken_on><additional_info>' + additionalInfo +
         '</additional_info><page_url>' + pageUrl + '</page_url><return_url>' + returnUrl + '</return_url></custody_req>';
     input = document.createElement('input');
     input.setAttribute('name', 'requestParams');

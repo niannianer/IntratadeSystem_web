@@ -16,6 +16,10 @@
                     <div class="showtab"><span @click.stop="show()">查看充值限额</span></div>
                 </div>
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
+                <div class="handling-charge" flex>
+                    <div class="name">手续费</div>
+                    <div><span>5</span>元</div>
+                </div>
             </div>
             <div class="recharge-success" v-else>
                 <div class="success-icon" flex="main:center" v-if="complete == 1">
