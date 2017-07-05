@@ -18,7 +18,11 @@
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
                 <div class="handling-charge" flex>
                     <div class="name">手续费</div>
-                    <div><span>5</span>元</div>
+                    <div><span>{{handlingCharge}}</span>元</div>
+                </div>
+                <div class="handling-charge" flex>
+                    <div class="name">实际提交金额</div>
+                    <div><span>{{amount}}</span>元</div>
                 </div>
             </div>
             <div class="recharge-success" v-else>
@@ -35,7 +39,7 @@
                     <div>充值失败</div>
                 </div>
             </div>
-            <div class="btns" v-if="!status">
+            <div class="btns" v-if="!status" flex>
                 <button @click.stop="next">下一步</button>
             </div>
             <div class="btns again" v-else flex="main:center">
@@ -44,7 +48,7 @@
             <div class="page-list">
                 <h5>温馨提示</h5>
                 <p>1、如果在充值过程中遇到问题请致电：<span>{{telNumber}}</span>；</p>
-                <p>2、请使用借记卡充值，信用卡无法充值，充值提现0手续费；</p>
+                <p>2、请使用借记卡充值，信用卡无法充值；</p>
                 <p>3、开通网银方法: (1)携带本人身份证到银行柜台办理; (2)登录网上银行办理；</p>
                 <p>4、每日的充值限额依据各银行限额为准。</p>
             </div>
@@ -71,20 +75,29 @@
                 complete:1,
                 rechargeMoney:'',
                 disabled:true,
+                handlingCharge:5,
                 telNumber
             }
         },
         created(){
 
         },
-        computed: mapState([
-            'bankUserCardNo',
-            'bank_code',
-            'bank_name',
-            'perday_limit',
-            'single_limit',
-            'single_limit_value',
-            'bankUserPhone']),
+        computed: {
+                ...mapState([
+                'bankUserCardNo',
+                'bank_code',
+                'bank_name',
+                'perday_limit',
+                'single_limit',
+                'single_limit_value',
+                'bankUserPhone']),
+            amount:function(){
+                if(this.rechargeMoney){
+                    return Number(this.rechargeMoney)+Number(this.handlingCharge);
+                }
+                return 0;
+            }
+        },
         methods: {
             next(){
                 if (!this.rechargeMoney) {
@@ -99,7 +112,7 @@
                 if(this.tab == 2){
                     //快捷支付
                     let newWind = window.open('/blank','_KingGoldBlank');
-                    $api.post('/trade/recharge', {amount:this.rechargeMoney})
+                    $api.post('/trade/recharge', {amount:this.amount})
                         .then(data => {
                             if (data.code == 200) {
                                 let params = data.data || {};
