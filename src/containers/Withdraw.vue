@@ -56,13 +56,13 @@
                     <p class="item-title" flex-box="0">交易密码</p>
                     <div flex-box="1" class="item-content">
                         <input type="password" maxlength="6" placeholder="请输入交易密码" v-model.trim="paypass" autocomplete="off">
-                        <p class="red">{{erroMsg}}</p>
                     </div>
                 </div>
                 <div class="item" flex>
                     <p class="item-title" flex-box="0"></p>
                     <div flex-box="1" class="item-content">
                         <button class="butn"  @click.stop="withdraw">{{btnMsg}}</button>
+                        <p class="red">{{erroMsg}}</p>
                     </div>
                 </div>
             </div>
