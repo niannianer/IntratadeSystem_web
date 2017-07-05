@@ -152,11 +152,11 @@
                     return false;
                 }
                 if(parseFloat(this.amount)>parseFloat(this.accountCashAmount-this.fee)){
-                    this.erroMsg = '提现金额不可大于可提现金额（含手续费）';
+                    this.erroMsg = '提现金额不能大于可提现金额（含手续费）';
                     return false;
                 }
                 if(parseFloat(this.amount)>parseFloat(this.withdraw_limit_value)){
-                    this.erroMsg = '提现金额不可大于单笔限额';
+                    this.erroMsg = '提现金额不能大于单笔限额';
                     return false;
                 }
                 this.erroMsg = '';
