@@ -10,13 +10,8 @@ let initInstance = () => {
     instance = new QuotaConstructor({
         el: document.createElement('div')
     });
-    /*instance.close = () => {
-        window.setTimeout(() => {
-            document.body.removeChild(instance.$el);
-        });
-    };*/
 };
-let Quota = (options) => {
+let Quota = (callback) => {
     if (!instance) {
         initInstance();
     }
@@ -25,8 +20,8 @@ let Quota = (options) => {
         window.setTimeout(() => {
             document.body.removeChild(instance.$el);
         });
-        if (options.callback) {
-            options.callback(result);
+        if (callback) {
+            callback(result);
         }
     };
     return instance;
