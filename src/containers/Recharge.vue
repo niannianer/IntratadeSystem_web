@@ -109,6 +109,10 @@
                     return false;
                 }
                 if(this.disabled){return false}
+                if(this.amount>=1000000000000){
+                    Toast('充值金额加手续费不要超过10000亿元！');
+                    return false;
+                }
                 if(this.tab == 2){
                     //网银支付
                     let newWind = window.open('/blank','_KingGoldBlank');
