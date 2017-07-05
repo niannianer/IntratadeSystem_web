@@ -110,13 +110,13 @@
                 }
                 if(this.disabled){return false}
                 if(this.tab == 2){
-                    //快捷支付
+                    //网银支付
                     let newWind = window.open('/blank','_KingGoldBlank');
                     $api.post('/trade/recharge', {amount:this.amount})
                         .then(data => {
                             if (data.code == 200) {
                                 let params = data.data || {};
-                                params.amount = this.rechargeMoney;
+                                params.amount = this.amount;
                                 params.userId = this.$store.state.userId;
                                 submitRecharge(params);
                                 PayWindow({
