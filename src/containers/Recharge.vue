@@ -39,11 +39,10 @@
             </div>
             <div class="page-list">
                 <h5>温馨提示</h5>
-                <p>1、如果在充值过程中遇到问题请致电：<span>400-812-1111</span>；</p>
-                <p>2、如果超出支付限额，整体投资金额进行拆分，多次充值；</p>
-                <p>3、请使用借记卡充值，信用卡无法充值，充值提现0手续费；</p>
-                <p>4、开通网银方法: (1)携带本人身份证到银行柜台办理; (2)登录网上银行办理；</p>
-                <p>5、每日的充值限额依据各银行限额为准。</p>
+                <p>1、如果在充值过程中遇到问题请致电：<span>{{telNumber}}</span>；</p>
+                <p>2、请使用借记卡充值，信用卡无法充值，充值提现0手续费；</p>
+                <p>3、开通网银方法: (1)携带本人身份证到银行柜台办理; (2)登录网上银行办理；</p>
+                <p>4、每日的充值限额依据各银行限额为准。</p>
             </div>
         </div>
     </div>
@@ -55,6 +54,7 @@
     import PayWindow from '../components/PayWindow';
     import Quota from '../components/Quota';
     import Toast from '../components/Toast';
+    import {telNumber} from '../tools/config';
     import {submitRecharge, currencyInputValidate} from '../tools/operation';
     let timer = null;
     export default {
@@ -66,11 +66,12 @@
                 status:0,
                 complete:1,
                 rechargeMoney:'',
-                disabled:true
+                disabled:true,
+                telNumber
             }
         },
         created(){
-            
+
         },
         computed: mapState([
             'bankUserCardNo',
@@ -123,7 +124,7 @@
                                                         this.complete = 2;
                                                     }
                                                 });
-                                            
+
                                         }else{
                                             //未完成或者“×”
                                             //测试 调用查询接口触发更新
