@@ -4,7 +4,7 @@
         <div class="menus" flex-box="0">
             <router-link class="menu" :to="{path:'/menus/personal-center'}"
                          active-class="menu-active"
-                         replace >个人中心</router-link>
+                         replace >账户中心</router-link>
             <router-link class="menu" :to="{path:'/menus/recharge'}"
                          active-class="menu-active"
                          replace >充值</router-link>
