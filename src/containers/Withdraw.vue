@@ -55,7 +55,8 @@
                 <div class="item paypass" flex>
                     <p class="item-title" flex-box="0">交易密码</p>
                     <div flex-box="1" class="item-content">
-                        <input type="password" maxlength="6" placeholder="请输入交易密码" v-model.trim="paypass" autocomplete="off">
+                        <input type="hidden" maxlength="6" placeholder="请输入交易密码"  name="password">
+                        <input type="password" maxlength="6" placeholder="请输入交易密码" v-model.trim="paypass" autocomplete="off" name="password">
                     </div>
                 </div>
                 <div class="item" flex>
