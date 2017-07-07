@@ -12,7 +12,7 @@
                 </div>
                 <div class="monery clear com">
                     <div class="left div">充值金额</div>
-                    <div class="left com inputs"><input @input="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney" maxlength="12"></div>
+                    <div class="left com inputs"><input @input="myKeyup" type="text" placeholder="请输入充值金额" v-model="rechargeMoney" maxlength="12"><i>元</i></div>
                     <div class="showtab"><span @click.stop="show()">查看充值限额</span></div>
                 </div>
                 <!-- <p class="hint">点击“下一步”按钮即代表您已阅读并知晓《XXXXXX协议》</p> -->
