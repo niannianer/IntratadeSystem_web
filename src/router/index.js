@@ -46,7 +46,7 @@ let routes = [
                 name: 'personal-center',
                 component: PersonalCenter,
                 meta: {
-                    title: '个人中心'
+                    title: '账户中心'
                 },
             },
             {
