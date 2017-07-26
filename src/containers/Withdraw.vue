@@ -62,7 +62,7 @@
                 <div class="item" flex>
                     <p class="item-title" flex-box="0"></p>
                     <div flex-box="1" class="item-content">
-                        <button class="butn"  @click.stop="withdraw">{{btnMsg}}</button>
+                        <button class="butn"  :disabled="disable" @click.stop="withdraw">{{btnMsg}}</button>
                         <p class="red">{{erroMsg}}</p>
                     </div>
                 </div>
@@ -101,7 +101,8 @@
                 withdrawStatus:true,
                 btnMsg:'提现',
                 withdraw_limit:'200万',
-                withdraw_limit_value:2000000
+                withdraw_limit_value:2000000,
+                disable:false
             }
         },
         created(){
@@ -126,12 +127,14 @@
                     return false;
                 }
                 this.btnMsg ='提现中。。。';
+                this.disable = true;
                     $api.post('/trade/withdraw',{
                     amount:this.amount,
                     userPayPassword:this.paypass
                 })
                     .then((resp)=>{
                         this.btnMsg ='提现';
+                        this.disable = false;
                         if(resp.code == 200){
                             this.withdrawStatus = false;
                         }else{
