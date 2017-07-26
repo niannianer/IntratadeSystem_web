@@ -154,7 +154,7 @@
                             this.$store.dispatch('getBaofooInfo');
                             this.$router.push('/menus/personal-center')
                         } else {
-                            this.errInfo = '系统错误，稍后再试';
+                            this.errInfo = data.msg;
                         }
                     });
 

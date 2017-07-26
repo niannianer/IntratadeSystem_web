@@ -26,7 +26,9 @@ module.exports = {
         'Promise': true,
         'history':true,
         'document': true,
-        'Math':true
+        'Math':true,
+        'module':true,
+        '__dirname':true
     },
     // add your custom rules here
     'rules': {

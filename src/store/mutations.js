@@ -18,14 +18,11 @@ mutations.setBaofooInfo = (state, data) => {
 
 // 账户银行卡
 mutations.setBankUser = (state, data) => {
-    if (data && data.baofooCardId) {
-
-        Object.keys(state).forEach(key=>{
-            if (data.hasOwnProperty(key)) {
-                state[key] = data[key];
-            }
-        });
-    }
+    Object.keys(state).forEach(key=>{
+        if (data.hasOwnProperty(key)) {
+            state[key] = data[key];
+        }
+    });
 };
 // 银行卡限额信息
 mutations.setBankInfo = (state, data) => {
