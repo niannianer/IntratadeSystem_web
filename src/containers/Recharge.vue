@@ -28,7 +28,7 @@
             <div class="recharge-success" v-else>
                 <div class="success-icon" flex="main:center" v-if="complete == 1">
                     <div class="img"><img src="../images/icon-success.png" alt=""></div>
-                    <div>充值成功！</div>
+                    <div>充值申请成功！</div>
                 </div>
                 <div class="success-icon" flex="main:center" v-if="complete == 0">
                     <div class="img"><img src="../images/icon-error.png" alt=""></div>
