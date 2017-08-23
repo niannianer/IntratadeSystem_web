@@ -34,6 +34,9 @@
                 </div>
 
                 <div class="err-info">{{errInfo}}</div>
+                <div class="text-right">
+                    <router-link to="forgot-password">忘记密码</router-link>
+                </div>
 
                 <div class="btn-warp">
                     <button class="btn-primary btn-login" @click.stop="login">{{loginText}}</button>

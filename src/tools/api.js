@@ -3,15 +3,14 @@
  */
 import 'babel-polyfill';
 import axios from 'axios';
-import {devUrl, testUrl, productionUrl, nodeTestApi, nodeProductionApi} from './config';
+import {devUrl, testUrl, productionUrl} from './config';
 let serverUrl = devUrl;
-let nodeUrl = nodeTestApi;
+
 if (process.env.kingold == 'test') {
     serverUrl = testUrl;
 }
 if (process.env.kingold == 'production') {
     serverUrl = productionUrl;
-    nodeUrl = nodeProductionApi;
 }
 let $query = (data) => {
     let str = [];
@@ -53,10 +52,7 @@ let get = (path, data = {}) => {
     })
 
 };
-let getNode = (path, data = {}) => {
-    let url = `${nodeUrl + path}`
-    return get(url, data);
-};
+
 import  {logout} from './operation';
 let post = (path, data = {}) => {
     data.callSystemID = '1005';
@@ -94,15 +90,10 @@ let post = (path, data = {}) => {
     })
 
 };
-let postNode = (path, data = {}) => {
-    let url = `${nodeUrl + path}`;
-    return post(url, data);
-};
+
 const $api = {
     get,
     post,
-    getNode,
-    postNode,
     serverUrl
 };
 export default $api;

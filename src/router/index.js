@@ -5,11 +5,13 @@ import {logout} from '../tools/operation';
 Vue.use(Router)
 import {setTitle} from '../tools/operation';
 import Login from '../containers/Login';
+import ForgotPassword from '../containers/ForgotPassword';
 import Menus from '../containers/Menus';
 import PersonalCenter from '../containers/PersonalCenter';
 import Recharge  from '../containers/Recharge';
 import Withdraw from '../containers/Withdraw';
 import Blank from '../containers/Blank';
+import Purchase from '../containers/Purchase';
 let routes = [
     {
         path: '/blank',
@@ -21,13 +23,22 @@ let routes = [
     },
     {
         path: '/',
-        redirect: '/menus/personal-center'
+        redirect: '/login'
     },
     {
         path: '/login',
         component: Login,
         meta: {
             title: '登录',
+            login: true
+        }
+    },
+    {
+        path: '/forgot-password',
+        name:'forgot-password',
+        component: ForgotPassword,
+        meta: {
+            title: '忘记密码',
             login: true
         }
     },
@@ -63,6 +74,14 @@ let routes = [
                 component: Withdraw,
                 meta: {
                     title: '提现'
+                }
+            },
+            {
+                path: 'purchase',
+                name: 'purchase',
+                component: Purchase,
+                meta: {
+                    title: '机构购买'
                 }
             }
         ]
