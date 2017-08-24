@@ -18,40 +18,17 @@ export let setTitle = (title) => {
         document.body.appendChild(iframe);
     }, 0);
 };
-
-
-import md5 from 'md5';
 import $api from './api';
-import  * as config from './config';
-let baofooUrl = config.baofooTestUrl;
-let baofooCallUrl = config.baofooCallUrlTest;
-let serverUrl = config.devUrl;
-let merchant_id = '100000675';
-let terminal_id = '100000701';
-if (process.env.kingold == 'test') {
-    baofooUrl = config.baofooTestUrl;
-    serverUrl = config.testUrl;
-    baofooCallUrl = config.baofooCallUrlTest;
-    merchant_id = '100000675';
-    terminal_id = '100000701';
-}
-if (process.env.kingold == 'production') {
-    baofooUrl = config.baofooProductUrl;
-    serverUrl = config.productionUrl;
-    baofooCallUrl = config.baofooCallUrlProduct;
-    merchant_id = '1177929';
-    terminal_id = '35265';
-}
+import   config from './config';
+let baofooUrl = config.baofooActionUrl;
+let baofooCallUrl = config.baofooCallUrl;
+let merchant_id = config.merchant_id;
+let terminal_id = config.terminal_id;
 
 // baofoo 充值
 export let submitRecharge = (params) => {
     let {userId, orderBillCode, amount, returnUrl} = params;
-    let backUrl = window.sessionStorage.getItem('backUrl');
-    if (!backUrl) {
-        backUrl = window.location.origin + '/my-assets?t=' + new Date().getTime();
-    }
-    let pageUrl = `${baofooCallUrl}/baofoo/h5/notification/recharge?backUrl=${backUrl}`;
-    let backUrlParams = window.sessionStorage.getItem('backUrlParams');
+    let pageUrl = `${baofooCallUrl}/baofoo/h5/notification/recharge`;
     $api.post('/baofoo/rechargeParam', {
         amount,
         userId,
