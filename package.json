@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --watch",
     "test": "cross-env NODE_ENV=test webpack --progress --hide-modules",
+    "stage": "cross-env NODE_ENV=stage webpack --progress --hide-modules",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
