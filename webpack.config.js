@@ -18,7 +18,7 @@ console.log(env);
 
 const config = {
     entry: {
-        'ventor': ['vue', 'vue-router', 'vuex','bootstrap-vue'],
+        'ventor': ['vue', 'vue-router', 'vuex', 'bootstrap-vue'],
         'tools': ['babel-polyfill', 'axios'],
         'main': './src/main.js'
     },
@@ -119,11 +119,11 @@ const config = {
     ],
     devtool: '#eval-source-map'
 }
-if (env == 'production' || env == 'test') {
+if (env == 'production' || env == 'stage' || env == 'test') {
     console.log('------->', env)
     config.devtool = '';
     config.output.publicPath = '/dist/';
-    if (env === 'production') {
+    if (env === 'production' || env == 'stage') {
         config.output.publicPath = 'https://issuer.zj-hf.cn/dist/';
     }
     config.output.filename = '[name].[chunkhash:8].js';
