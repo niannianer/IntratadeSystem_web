@@ -21,7 +21,7 @@
             </div>
             <div class="header-body">
                 <div class="content">
-                    募集方平台
+                    机构用户
 
                     <div class="logo"></div>
                 </div>
