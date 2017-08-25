@@ -21,7 +21,7 @@
             </div>
             <div class="header-body">
                 <div class="content">
-                    机构用户
+                    {{userText}}
 
                     <div class="logo"></div>
                 </div>
@@ -61,12 +61,22 @@
                 telNumber
             }
         },
-        computed: mapState([
-            'userLoginName',
-            'userId',
-            'userUuid',
-            'legalPersonMobile'
-        ]),
+        computed: {
+            ...mapState([
+                'userLoginName',
+                'userId',
+                'userUuid',
+                'userType',
+                'legalPersonMobile'
+            ]),
+            userText(){
+                if (this.userType == 3) {
+                    return '机构投资者'
+                } else {
+                    return '募集方平台'
+                }
+            }
+        },
         methods: {
             preLogout(){
                 this.showLogout = true;
