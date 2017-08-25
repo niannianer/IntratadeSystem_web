@@ -41,21 +41,21 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">购买金额</label>
                     <div class="form-input" flex-box="1">
-                        <input  class="input input-purchase">
+                        <input class="input input-purchase">
                     </div>
 
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">交易密码</label>
                     <div class="form-input" flex-box="1">
-                        <input  class="input input-purchase" type="password">
+                        <input class="input input-purchase" type="password">
                     </div>
 
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0"></label>
                     <div class="form-input" flex-box="1">
-                        <button  class="btn btn-primary btn-purchase">购买</button>
+                        <button class="btn btn-primary btn-purchase">购买</button>
                     </div>
 
                 </div>
@@ -75,9 +75,16 @@
         },
         components: {},
         created(){
+            this.getList();
         },
         computed: {},
-        methods: {},
+        methods: {
+            getList(){
+                $api.get('/product/getList')
+                    .then(res => {
+                    })
+            }
+        },
         mounted(){
 
         },
