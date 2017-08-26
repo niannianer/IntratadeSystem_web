@@ -1,7 +1,7 @@
 <template>
     <div class="purchase">
         <div class="form-content">
-            <form>
+            <div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">机构邮箱</label>
                     <span flex-box="1" class="form-input">{{userLoginName}}</span>
@@ -64,9 +64,11 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">交易密码</label>
                     <div class="form-input" flex-box="0">
-                        <input class="input input-purchase" type="hidden" v-model.trim="userPayPassword"
+                        <input class="input input-purchase" type="hidden" autocomplete="off"
+                               v-model.trim="userPayPassword"
                                maxlength="6">
-                        <input class="input input-purchase" type="password" v-model.trim="userPayPassword"
+                        <input class="input input-purchase" autocomplete="off"
+                               type="password" v-model.trim="userPayPassword"
                                maxlength="6">
                     </div>
                     <div class="set-pay" @click.stop="setPay">忘记交易密码</div>
@@ -85,7 +87,7 @@
                     </div>
 
                 </div>
-            </form>
+            </div>
         </div>
 
     </div>
@@ -149,6 +151,10 @@
                 }
                 if (Number(this.orderAmount) > Number(this.currentProduct.productRemainAmount)) {
                     this.errInfo = '购买金额不能大于剩余可投金额';
+                    return false;
+                }
+                if (Number(this.orderAmount) > Number(this.accountCashAmount)) {
+                    this.errInfo = '购买金额不能大于可用余额';
                     return false;
                 }
                 return true;
