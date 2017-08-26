@@ -48,8 +48,25 @@
                 .image-code{
                     width: 130px;
                     margin-left: 16px;
-                    letter-spacing: 8px;
                     cursor: pointer;
+                    padding: 12px 25px;
+
+                        span{
+                            color: #7ed321;
+                            &:first-child {
+                                color: #9012FE;
+                                transform: rotate(-15deg);
+                            }
+                            &:last-child {
+                                color: #bb0076;
+                                transform: rotate(35deg);
+                            }
+                            &:nth-child(3) {
+                                color: #ff8943;
+                                transform: rotate(20deg);
+                            }
+
+                        }
                 }
                 .verify-code{
                     width: 130px;

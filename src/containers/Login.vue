@@ -28,7 +28,9 @@
                     </div>
 
                     <div class="input-code image-code text-center" flex-box="0">
-                        <div class="input" @click.stop="getImageCode">{{imageCode}}</div>
+                        <div class="input" @click.stop="getImageCode" flex="main:justify">
+                            <span v-for="code in imageCode">{{code}}</span>
+                        </div>
                     </div>
 
                 </div>

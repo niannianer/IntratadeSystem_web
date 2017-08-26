@@ -157,13 +157,21 @@ export let isPayPassword = (password) => {
     }
     return reg.test(password);
 };
-export let isPhone =(phone)=>{
-    if(!phone){
+export let isPhone = (phone) => {
+    if (!phone) {
         return false;
     }
     let reg = /^1[3|4|5|7|8]\d{9}$/;
     return reg.test(phone.toString());
 };
+let imgNames = ['abchina', 'bankcomm', 'bankofshanghai',
+    'boc', 'ccb', 'cebbank', 'cgbchina', 'cib', 'cmbc',
+    'cmbchina', 'ecitic', 'hxb', 'icbc', 'pingan', 'psbc', 'spdb'];
+let imgUrls = {};
+imgNames.map(url => {
+    imgUrls[url] = require(`../images/bank/${url}.png`)
+});
+export let bankImages = imgUrls;
 let $operation = {
     setTitle
 }
