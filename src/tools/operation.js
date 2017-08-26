@@ -135,6 +135,35 @@ export let logout = () => {
     window.sessionStorage.setItem('logoutUrl', encodeURIComponent(window.location.href));
     window.location.replace('/login');
 };
+export let isIdCard = (idCard) => {
+    let isIDCard1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+    let isIDCard2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+    if (!idCard) {
+        return false;
+    }
+    return isIDCard1.test(idCard.toString()) || isIDCard2.test(idCard.toString())
+};
+export let isPassword = (password) => {
+    let reg = /(?=.*[0-9])(?=.*[A-Za-z])^[0-9A-Za-z]{6,20}$/;
+    if (!password) {
+        return false;
+    }
+    return reg.test(password);
+};
+export let isPayPassword = (password) => {
+    let reg = /^[0-9]{6}$/;
+    if (!password) {
+        return false;
+    }
+    return reg.test(password);
+};
+export let isPhone =(phone)=>{
+    if(!phone){
+        return false;
+    }
+    let reg = /^1[3|4|5|7|8]\d{9}$/;
+    return reg.test(phone.toString());
+};
 let $operation = {
     setTitle
 }

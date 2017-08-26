@@ -16,7 +16,7 @@ let initInstance = () => {
         });
     };
 };
-let PayPassword = (options) => {
+let PayPassword = (options = {}) => {
     if (!instance) {
         initInstance();
     }

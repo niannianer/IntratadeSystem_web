@@ -4,58 +4,84 @@
             <form>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">机构邮箱</label>
-                    <span flex-box="1" class="form-input">dsg@163.com</span>
+                    <span flex-box="1" class="form-input">{{userLoginName}}</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">机构名称</label>
-                    <span flex-box="1" class="form-input">中冀汇通科技互联网有限公司</span>
+                    <span flex-box="1" class="form-input">{{enterpriseName}}</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">账户余额</label>
-                    <span flex-box="1" class="form-input">12345</span>
+                    <span flex-box="1" class="form-input">{{accountCashAmount | currencyFormat}} 元</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">产品编号</label>
                     <div flex-box="1" class="form-input">
-                        <select class="select-purchase">
-                            <option value="1">编号1</option>
-                            <option value="2">编号2</option>
-                            <option value="3">编号3</option>
-                            <option value="4">编号4</option>
+                        <select class="select-purchase" v-model="productUuid" @change="setCurrent">
+                            <option v-for="option in productList"
+                                    v-bind:value="option.productUuid">
+                                {{option.productName}} 【{{option.productCode}}】
+                            </option>
+
                         </select>
                     </div>
 
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">产品名称</label>
-                    <span flex-box="1" class="form-input">北斗中枢定期产品12</span>
+                    <span flex-box="1" class="form-input">{{currentProduct.productName}}</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">产品期限</label>
-                    <span flex-box="1" class="form-input">180天</span>
+                    <span flex-box="1" class="form-input">{{currentProduct.productPeriod}}天</span>
+                </div>
+                <div class="form-item" flex>
+                    <label class="form-label" flex-box="0">年化收益率</label>
+                    <span flex-box="1" class="form-input">{{currentProduct.annualInterestRate}}</span>
+                </div>
+                <div class="form-item" flex>
+                    <label class="form-label" flex-box="0">起投金额</label>
+                    <span flex-box="1"
+                          class="form-input">{{currentProduct.productMinInvestment | currencyFormat}}元</span>
+                </div>
+                <div class="form-item" flex>
+                    <label class="form-label" flex-box="0">最高可投</label>
+                    <span flex-box="1"
+                          class="form-input">{{currentProduct.productMinInvestment | currencyFormat}}元</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">剩余可投</label>
-                    <span flex-box="1" class="form-input">11999元</span>
+                    <span flex-box="1"
+                          class="form-input">{{currentProduct.productRemainAmount | currencyFormat}}元</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">购买金额</label>
                     <div class="form-input" flex-box="1">
-                        <input class="input input-purchase">
+                        <input class="input input-purchase" v-model="orderAmount">
                     </div>
 
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">交易密码</label>
-                    <div class="form-input" flex-box="1">
-                        <input class="input input-purchase" type="password">
+                    <div class="form-input" flex-box="0">
+                        <input class="input input-purchase" type="hidden" v-model.trim="userPayPassword"
+                               maxlength="6">
+                        <input class="input input-purchase" type="password" v-model.trim="userPayPassword"
+                               maxlength="6">
                     </div>
+                    <div class="set-pay" @click.stop="setPay">忘记交易密码</div>
+
+                </div>
+                <div class="form-item" flex>
+                    <div class="err-info">{{errInfo}}</div>
 
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0"></label>
                     <div class="form-input" flex-box="1">
-                        <button class="btn btn-primary btn-purchase">购买</button>
+                        <button class="btn btn-primary btn-purchase" :disabled="loading"
+                                @click.stop.prevent="purchase">{{loading?'正在购买...':'购买'}}
+                        </button>
                     </div>
 
                 </div>
@@ -66,23 +92,115 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     import '../less/purchase.less';
     import $api from '../tools/api';
+    import {isPayPassword} from '../tools/operation';
+    import Toast from '../components/Toast';
+    import PayPassword from '../components/PayPassword';
     export default {
         name: 'purchase',
         data(){
-            return {}
+            return {
+                productList: [],
+                currentProduct: {},
+                productUuid: '',
+                orderAmount: '',
+                userPayPassword: '',
+                errInfo: '',
+                loading: false
+            }
         },
         components: {},
         created(){
             this.getList();
         },
-        computed: {},
+        computed: {
+            ...mapState([
+                'accountCashAmount',
+                'userLoginName',
+                'enterpriseName'
+            ])
+        },
         methods: {
+            checkPassword(){
+                if (!this.userPayPassword) {
+                    this.errInfo = ('请输入交易密码');
+                    return false;
+                }
+                if (isPayPassword(this.userPayPassword)) {
+                    return true;
+                }
+                this.errInfo = ('请输入正确的交易密码（6位数字）');
+                return false;
+            },
+            isAmount(){
+                if (!this.orderAmount) {
+                    this.errInfo = '请输入购买金额';
+                    return false;
+                }
+                if (isNaN(this.orderAmount)) {
+                    this.errInfo = '请输入正确的购买金额';
+                    return false;
+                }
+                if (Number(this.orderAmount) < Number(this.currentProduct.productMinInvestment)) {
+                    this.errInfo = '购买金额不能小于最小投资金额';
+                    return false;
+                }
+                if (Number(this.orderAmount) > Number(this.currentProduct.productRemainAmount)) {
+                    this.errInfo = '购买金额不能大于剩余可投金额';
+                    return false;
+                }
+                return true;
+            },
             getList(){
                 $api.get('/product/getList')
                     .then(res => {
+                        if (res.code == 200) {
+                            this.productList = res.data.productList;
+                        }
                     })
+            },
+            setCurrent(){
+                let {productUuid} = this;
+                if (!productUuid) {
+                    this.currentProduct = {};
+                    return false;
+                }
+                this.productList.map(p => {
+                    if (p.productUuid == productUuid) {
+                        this.currentProduct = p;
+                    }
+                });
+            },
+            purchase(){
+                if (!this.productUuid) {
+                    this.errInfo = '请选择购买产品';
+                    return false;
+                }
+                if (this.isAmount() && this.checkPassword()) {
+                    let {productUuid, orderAmount, userPayPassword} = this;
+                    this.loading = true;
+                    $api.post('/trade/invest', {productUuid, orderAmount, userPayPassword})
+                        .then(res => {
+                            this.loading = false;
+                            this.getList();
+                            if (res.code == 200) {
+                                Toast('购买成功');
+                                this.$store.dispatch('getBaofooInfo')
+                                    .then(() => {
+                                        this.productUuid = '';
+                                        this.setCurrent();
+                                    });
+                            }
+                            else {
+                                this.errInfo = res.msg;
+                            }
+                        });
+                }
+            },
+            setPay(){
+                PayPassword()
             }
         },
         mounted(){

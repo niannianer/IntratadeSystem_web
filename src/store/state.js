@@ -13,6 +13,7 @@ const state = {
     userLoginName:'',
     userType:'',
     userUuid:'',
+    enterpriseName:'',
 
     /*baofoo info*/
     accountTotalAssets:0.00, //总资产
