@@ -1,5 +1,5 @@
 <template>
-    <div class="pay-password" @click.stop="callback">
+    <div class="pay-password" ><!--@click.stop="callback"-->
         <div class="pay-body">
             <div class="title text-center">忘记交易密码</div>
             <div class="form-warp">
