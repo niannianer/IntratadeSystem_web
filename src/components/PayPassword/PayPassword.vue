@@ -1,7 +1,12 @@
 <template>
-    <div class="pay-password" ><!--@click.stop="callback"-->
+    <div class="pay-password" >
         <div class="pay-body">
-            <div class="title text-center">忘记交易密码</div>
+            <div class="title text-center">
+                <p>忘记交易密码</p>
+                <div class="close-btn" @click.stop="callback">
+                    X
+                </div>
+            </div>
             <div class="form-warp">
                 <div class="form-item" flex>
                     <label class="label" flex-box="0">法人身份证号：</label>
