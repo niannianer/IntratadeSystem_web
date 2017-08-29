@@ -90,6 +90,7 @@
                 this.inputCode = '';
                 this.timer = '';
                 this.callback();
+                this.clearTimeCount();
             },
             checkPhone(){
                 if (!this.mobile) {
