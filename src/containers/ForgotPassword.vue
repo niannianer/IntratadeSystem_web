@@ -32,6 +32,20 @@
                 <div class="code-item" flex>
                     <div class="input-code" flex-box="1">
                         <input type="text"
+                               v-model.trim="inputCode"
+                               class="input text-center" placeholder="请输入图形验证码"/>
+                    </div>
+
+                    <div class="input-code image-code text-center" flex-box="0">
+                        <div class="input" @click.stop="getImageCode" flex="main:justify">
+                            <span v-for="code in imageCode">{{code}}</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="code-item" flex>
+                    <div class="input-code" flex-box="1">
+                        <input type="text"
                                v-model.trim="verifyCode"
                                class="input text-center" placeholder="短信验证码"/>
                     </div>
@@ -46,20 +60,7 @@
                     </div>
 
                 </div>
-                <div class="code-item" flex>
-                    <div class="input-code" flex-box="1">
-                        <input type="text"
-                               v-model.trim="inputCode"
-                               class="input text-center" placeholder="请输入图形验证码"/>
-                    </div>
 
-                    <div class="input-code image-code text-center" flex-box="0">
-                        <div class="input" @click.stop="getImageCode" flex="main:justify">
-                            <span v-for="code in imageCode">{{code}}</span>
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="err-info">{{errInfo}}</div>
 
@@ -202,7 +203,7 @@
                     return false;
                 }
                 if (!this.repassword) {
-                    this.errInfo = '请重复输入密码';
+                    this.errInfo = '请输入重复密码';
                     return false;
                 }
                 if (this.userLoginPassword != this.repassword) {

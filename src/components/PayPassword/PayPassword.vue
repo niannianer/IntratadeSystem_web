@@ -1,7 +1,11 @@
 <template>
-    <div class="pay-password" @click.stop="clearVar">
+    <div class="pay-password" >
         <div class="pay-body" @click.stop=";">
-            <div class="title text-center">忘记交易密码</div>
+            <div class="title text-center">
+                忘记交易密码
+                <span @click.stop="clearVar"
+                    style="position: absolute;right: 10px;top: 6px;font-size: 20px;cursor: pointer">X</span>
+            </div>
             <div class="form-warp">
                 <div class="form-item" flex>
                     <label class="label" flex-box="0">法人身份证号：</label>
@@ -22,13 +26,6 @@
                     <input class="input" type="password" flex-box="1" v-model.trim="rePassword" maxlength="6"/>
                 </div>
                 <div class="form-item" flex>
-                    <label class="label" flex-box="0">短信验证码：</label>
-                    <input class="input" flex-box="1" v-model.trim="verifyCode" maxlength="6"/>
-                    <span class="verify-text btn btn-primary" v-show="verifyTimeLeft<1"
-                          @click.stop="getVerify">{{verifyText}}</span>
-                    <span class="verify-text btn btn-default" v-show="verifyTimeLeft>=1">{{verifyTimeLeft}}</span>
-                </div>
-                <div class="form-item" flex>
                     <label class="label" flex-box="0">图形验证码：</label>
                     <input class="input" flex-box="1" v-model.trim="inputCode" maxlength="4"/>
                     <span class="image-text btn btn-default" flex-box="0" flex="main:justify"
@@ -36,6 +33,14 @@
                         <span v-for="code in imageCode">{{code}}</span>
                     </span>
                 </div>
+                <div class="form-item" flex>
+                    <label class="label" flex-box="0">短信验证码：</label>
+                    <input class="input" flex-box="1" v-model.trim="verifyCode" maxlength="6"/>
+                    <span class="verify-text btn btn-primary" v-show="verifyTimeLeft<1"
+                          @click.stop="getVerify">{{verifyText}}</span>
+                    <span class="verify-text btn btn-default" v-show="verifyTimeLeft>=1">{{verifyTimeLeft}}</span>
+                </div>
+
                 <div class="form-item" style="height: 40px">
                     <span class="err-info">{{errInfo}}</span>
                 </div>
@@ -80,11 +85,10 @@
             clearVar(){
                 this.mobile = '';
                 this.verifyCode = '';
-                this.verifyText = '';
                 this.userPayPassword = '';
                 this.rePassword = '';
                 this.idCard = '';
-             /*   this.imageCode = '';*/
+                this.verifyText = '获取验证码';
                 this.verifyTimeLeft = '';
                 this.inputCode = '';
                 this.timer = '';
@@ -187,6 +191,10 @@
                     return false;
                 }
                 if (!this.checkPassword()) {
+                    return false;
+                }
+                if (!this.inputCode) {
+                    this.errInfo = '请输入图形证码';
                     return false;
                 }
                 if (!this.verifyCode) {

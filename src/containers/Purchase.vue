@@ -58,7 +58,8 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">购买金额</label>
                     <div class="form-input" flex-box="1">
-                        <input class="input input-purchase" v-model="orderAmount">
+                        <input class="input input-purchase" @blur="keyUp"
+                               v-model="orderAmount">
                     </div>
 
                 </div>
@@ -83,7 +84,7 @@
                     <label class="form-label" flex-box="0"></label>
                     <div class="form-input" flex-box="1">
                         <button class="btn btn-primary btn-purchase" :disabled="loading"
-                                @click.stop.prevent="purchase">{{loading?'正在购买...':'购买'}}
+                                @click.stop.prevent="purchase">{{loading ? '正在购买...' : '购买'}}
                         </button>
                     </div>
 
@@ -111,7 +112,8 @@
                 orderAmount: '',
                 userPayPassword: '',
                 errInfo: '',
-                loading: false
+                loading: false,
+                timer: null
             }
         },
         components: {},
@@ -126,6 +128,19 @@
             ])
         },
         methods: {
+            keyUp(){
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                }
+                this.timer = setTimeout(() => {
+                    if (isNaN(this.orderAmount)) {
+                        this.orderAmount = '';
+                    } else {
+                        this.orderAmount = (+this.orderAmount).toFixed(2);
+                    }
+                }, 100);
+
+            },
             checkPassword(){
                 if (!this.userPayPassword) {
                     this.errInfo = ('请输入交易密码');
