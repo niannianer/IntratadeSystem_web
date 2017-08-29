@@ -7,7 +7,7 @@
                         <img class="icon" src="../images/login/icon-email.png"/>
                     </label>
                     <input type="tel" id="email"
-                           v-model.trim="mobile"
+                           v-model.trim="mobile" maxlength="11"
                            class="input" flex-box="1" placeholder="法人手机号"/>
                 </div>
 
@@ -16,7 +16,7 @@
                         <img class="icon" src="../images/login/icon-password.png"/>
                     </label>
                     <input type="hidden" v-model.trim="userLoginPassword"/>
-                    <input type="password" id="password"
+                    <input type="password" id="password" maxlength="20"
                            v-model.trim="userLoginPassword"
                            class="input" flex-box="1" placeholder="密码"/>
                 </div>
@@ -25,7 +25,7 @@
                         <img class="icon" src="../images/login/icon-password.png"/>
                     </label>
                     <input type="hidden" v-model.trim="repassword"/>
-                    <input type="password" id="re-password"
+                    <input type="password" id="re-password" maxlength="20"
                            v-model.trim="repassword"
                            class="input" flex-box="1" placeholder="重复密码"/>
                 </div>
@@ -223,6 +223,7 @@
                             return false;
                         }
                         this.errInfo = res.msg;
+                        this.getImageCode();
                     })
             }
         },

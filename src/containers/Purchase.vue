@@ -17,7 +17,8 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">产品编号</label>
                     <div flex-box="1" class="form-input">
-                        <select class="select-purchase" v-model="productUuid" @change="setCurrent">
+                        <select class="select-purchase"
+                                v-model="productUuid" @change="setCurrent">
                             <option v-for="option in productList"
                                     v-bind:value="option.productUuid">
                                 {{option.productName}} 【{{option.productCode}}】

@@ -218,6 +218,7 @@
                         }
                         else {
                             this.errInfo = res.msg;
+                            this.getImageCode();
                         }
                     });
             }
