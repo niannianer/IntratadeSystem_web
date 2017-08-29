@@ -1,6 +1,6 @@
 <template>
-    <div class="pay-password" @click.stop="callback">
-        <div class="pay-body">
+    <div class="pay-password" @click.stop="clearVar">
+        <div class="pay-body" @click.stop=";">
             <div class="title text-center">忘记交易密码</div>
             <div class="form-warp">
                 <div class="form-item" flex>
@@ -72,10 +72,25 @@
         },
         components: {},
         created(){
+
             this.getImageCode();
         },
         computed: {},
         methods: {
+            clearVar(){
+                this.mobile = '';
+                this.verifyCode = '';
+                this.verifyText = '';
+                this.userPayPassword = '';
+                this.rePassword = '';
+                this.idCard = '';
+                this.imageCode = '';
+                this.verifyTimeLeft = '';
+                this.inputCode = '';
+                this.inputCode = '';
+                this.timer = '';
+                this.callback();
+            },
             checkPhone(){
                 if (!this.mobile) {
                     this.errInfo = ('请输入手机号码');
@@ -186,13 +201,14 @@
                     this.errInfo = '两次密码不一致';
                     return false;
                 }
+                this.errInfo = '';
                 let {mobile, verifyCode, userPayPassword, idCard} = this;
                 $api.post('/user/resetPayPassword', {mobile, verifyCode, userPayPassword, idCard})
                     .then(res => {
                         if (res.code == 200) {
                             Toast('重置交易密码成功');
                             setTimeout(() => {
-                                this.callback();
+                                this.clearVar();
                             }, 1000);
                             return false;
                         }
@@ -208,6 +224,7 @@
         mounted(){
         },
         destroyed(){
+
 
         }
     }
