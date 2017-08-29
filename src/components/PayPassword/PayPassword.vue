@@ -84,9 +84,8 @@
                 this.userPayPassword = '';
                 this.rePassword = '';
                 this.idCard = '';
-                this.imageCode = '';
+             /*   this.imageCode = '';*/
                 this.verifyTimeLeft = '';
-                this.inputCode = '';
                 this.inputCode = '';
                 this.timer = '';
                 this.callback();
