@@ -22,6 +22,7 @@ let PayPassword = (options = {}) => {
     }
     document.body.appendChild(instance.$el);
     instance.title = options.title || '忘记交易密码';
+    instance.update = options.update || false;
     instance.callback = (result) => {
         window.setTimeout(() => {
             document.body.removeChild(instance.$el);

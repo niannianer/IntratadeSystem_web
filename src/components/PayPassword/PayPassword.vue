@@ -1,10 +1,10 @@
 <template>
-    <div class="pay-password" >
+    <div class="pay-password">
         <div class="pay-body" @click.stop=";">
             <div class="title text-center">
                 {{title}}
                 <span @click.stop="clearVar"
-                    style="position: absolute;right: 10px;top: 6px;font-size: 20px;cursor: pointer">X</span>
+                      style="position: absolute;right: 10px;top: 6px;font-size: 20px;cursor: pointer">X</span>
             </div>
             <div class="form-warp">
                 <div class="form-item" flex>
@@ -14,6 +14,13 @@
                 <div class="form-item" flex>
                     <label class="label" flex-box="0">法人手机号：</label>
                     <input class="input" flex-box="1" v-model.trim="mobile" maxlength="11"/>
+                </div>
+                <div v-show="update" class="form-item" flex>
+                    <label class="label" flex-box="0">原交易密码：</label>
+                    <input class="input" type="hidden" flex-box="1" v-model.trim="preUserPayPassword"
+                           maxlength="6"/>
+                    <input class="input" type="password" flex-box="1" v-model.trim="preUserPayPassword"
+                           maxlength="6"/>
                 </div>
                 <div class="form-item" flex>
                     <label class="label" flex-box="0">设置交易密码：</label>
@@ -60,12 +67,13 @@
     import Toast from '../../components/Toast';
     export default {
         name: 'pay-password',
-        props:['title'],
+        props: ['title', 'update'],
         data(){
             return {
                 mobile: '',
                 verifyCode: '',
                 verifyText: '获取验证码',
+                preUserPayPassword: '',
                 userPayPassword: '',
                 rePassword: '',
                 idCard: '',
@@ -87,6 +95,7 @@
                 this.mobile = '';
                 this.verifyCode = '';
                 this.userPayPassword = '';
+                this.preUserPayPassword = '';
                 this.rePassword = '';
                 this.idCard = '';
                 this.verifyText = '获取验证码';
@@ -108,6 +117,12 @@
                 return false;
             },
             checkPassword(){
+                if (this.update) {
+                    if (!this.preUserPayPassword) {
+                        this.errInfo = ('请输入原交易密码');
+                        return false;
+                    }
+                }
                 if (!this.userPayPassword) {
                     this.errInfo = ('请输入交易密码');
                     return false;
@@ -211,8 +226,12 @@
                     return false;
                 }
                 this.errInfo = '';
-                let {mobile, verifyCode, userPayPassword, idCard} = this;
-                $api.post('/user/resetPayPassword', {mobile, verifyCode, userPayPassword, idCard})
+
+                let {mobile, verifyCode, userPayPassword, idCard, preUserPayPassword} = this;
+                $api.post('/user/resetPayPassword', {
+                    mobile, verifyCode,
+                    userPayPassword, idCard, preUserPayPassword
+                })
                     .then(res => {
                         if (res.code == 200) {
                             Toast('重置交易密码成功');

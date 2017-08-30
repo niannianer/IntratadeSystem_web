@@ -108,7 +108,8 @@
             },
             setPay(){
                 PayPassword({
-                    title: '修改交易密码'
+                    title: '修改交易密码',
+                    update: true
                 });
             }
         },
