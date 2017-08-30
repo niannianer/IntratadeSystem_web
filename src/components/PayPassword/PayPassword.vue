@@ -2,7 +2,7 @@
     <div class="pay-password" >
         <div class="pay-body" @click.stop=";">
             <div class="title text-center">
-                忘记交易密码
+                {{title}}
                 <span @click.stop="clearVar"
                     style="position: absolute;right: 10px;top: 6px;font-size: 20px;cursor: pointer">X</span>
             </div>
@@ -60,6 +60,7 @@
     import Toast from '../../components/Toast';
     export default {
         name: 'pay-password',
+        props:['title'],
         data(){
             return {
                 mobile: '',
