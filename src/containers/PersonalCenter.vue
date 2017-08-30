@@ -47,6 +47,13 @@
                             <!--<div  class="butn">立即绑卡</div>-->
                         </div>
                     </div>
+                    <div class="info-item" flex>
+                        <span>交易密码</span>
+                        <p>已设置</p>
+                        <div class="btn-part">
+                            <div  class="butn" @click.stop="setPay">修改</div>
+                        </div>
+                    </div>
                 <!--    <div class="info-item" flex>
                         <span>待还总金额</span>
                         <p>898989</p>
@@ -74,6 +81,7 @@
     import '../less/person-center.less';
     import $api from '../tools/api';
     import {mapState} from 'vuex';
+    import PayPassword from '../components/PayPassword';
     export default {
         name: 'person-center',
         data(){
@@ -95,6 +103,9 @@
         methods: {
             switchMode(){
                 this.mode = !this.mode;
+            },
+            setPay(){
+                PayPassword();
             }
         },
         destroyed(){
