@@ -17,14 +17,10 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">产品编号</label>
                     <div flex-box="1" class="form-input">
-                        <select class="select-purchase"
-                                v-model="productUuid" @change="setCurrent">
-                            <option v-for="option in productList"
-                                    v-bind:value="option.productUuid">
-                                {{option.productName}} 【{{option.productCode}}】
-                            </option>
+                        <div class="select-warp">
+                            <king-select :options="productList" @callback="callback"></king-select>
+                        </div>
 
-                        </select>
                     </div>
 
                 </div>
@@ -45,10 +41,10 @@
                     <span flex-box="1"
                           class="form-input">{{currentProduct.productMinInvestment | currencyFormat}}元</span>
                 </div>
-                <div class="form-item" flex>
+                <div class="form-item" flex v-show="currentProduct.productMaxInvestment">
                     <label class="form-label" flex-box="0">最高可投</label>
                     <span flex-box="1"
-                          class="form-input">{{currentProduct.productMinInvestment | currencyFormat}}元</span>
+                          class="form-input">{{currentProduct.productMaxInvestment | currencyFormat}}元</span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">剩余可投</label>
@@ -102,6 +98,7 @@
     import {isPayPassword} from '../tools/operation';
     import Toast from '../components/Toast';
     import PayPassword from '../components/PayPassword';
+    import KingSelect from '../components/KingSelect';
     export default {
         name: 'purchase',
         data(){
@@ -116,7 +113,9 @@
                 timer: null
             }
         },
-        components: {},
+        components: {
+            KingSelect
+        },
         created(){
             this.getList();
         },
@@ -136,11 +135,12 @@
                     if (isNaN(this.orderAmount)) {
                         this.orderAmount = '';
                     } else {
-                        this.orderAmount = (+this.orderAmount).toFixed(2);
+                        this.orderAmount = (parseInt(this.orderAmount)).toFixed(2);
                     }
                 }, 100);
 
             },
+            /*检查交易密码*/
             checkPassword(){
                 if (!this.userPayPassword) {
                     this.errInfo = ('请输入交易密码');
@@ -152,6 +152,7 @@
                 this.errInfo = ('请输入正确的交易密码（6位数字）');
                 return false;
             },
+            /*检查输入金额*/
             isAmount(){
                 if (!this.orderAmount) {
                     this.errInfo = '请输入购买金额';
@@ -175,6 +176,7 @@
                 }
                 return true;
             },
+            /*获取产品列表*/
             getList(){
                 $api.get('/product/getList')
                     .then(res => {
@@ -183,6 +185,7 @@
                         }
                     })
             },
+            /*设置当前产品*/
             setCurrent(){
                 let {productUuid} = this;
                 if (!productUuid) {
@@ -195,6 +198,7 @@
                     }
                 });
             },
+            /*购买*/
             purchase(){
                 if (!this.productUuid) {
                     this.errInfo = '请选择购买产品';
@@ -209,6 +213,8 @@
                             this.getList();
                             if (res.code == 200) {
                                 Toast('购买成功');
+                                this.userPayPassword = '';
+                                this.orderAmount = '';
                                 this.$store.dispatch('getBaofooInfo')
                                     .then(() => {
                                         this.productUuid = '';
@@ -221,8 +227,14 @@
                         });
                 }
             },
+            /*设置交易密码*/
             setPay(){
                 PayPassword()
+            },
+            /*产品选择回调*/
+            callback(opt){
+                this.productUuid = opt.productUuid;
+                this.setCurrent();
             }
         },
         mounted(){

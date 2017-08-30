@@ -76,7 +76,7 @@
                 complete:1,
                 rechargeMoney:'',
                 disabled:true,
-                handlingCharge:5,
+                handlingCharge:0,
                 telNumber
             }
         },

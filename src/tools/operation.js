@@ -35,7 +35,7 @@ export let submitRecharge = (params) => {
         orderId: orderBillCode,
         returnUrl,
         pageUrl,
-        feeTakenOn: 2,
+        feeTakenOn: 1,
         fee: 0
     }).then(resp => {
         if (resp.code == 200) {

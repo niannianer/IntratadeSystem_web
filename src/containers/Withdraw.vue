@@ -102,7 +102,7 @@
                 amount: '',
                 paypass: '',
                 erroMsg: '',
-                fee: 2,
+                fee: 0,
                 withdrawStatus: true,
                 btnMsg: '提现',
                 withdraw_limit: '200万',
