@@ -43,10 +43,10 @@
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">最高可投</label>
-                    <span flex-box="1" v-show="currentProduct.productMaxInvestment"
+                    <span flex-box="1" v-if="currentProduct.productMaxInvestment"
                           class="form-input">{{currentProduct.productMaxInvestment | currencyFormat}}元
                     </span>
-                    <span flex-box="1" v-hide="currentProduct.productMaxInvestment"
+                    <span flex-box="1" v-else="currentProduct.productMaxInvestment"
                           class="form-input">无
                     </span>
                 </div>
@@ -59,7 +59,7 @@
                     <label class="form-label" flex-box="0">购买金额</label>
                     <div class="form-input" flex-box="1">
                         <input class="input input-purchase" @blur="keyUp"
-                               v-model="orderAmount">
+                               v-model.trim="orderAmount">
                     </div>
 
                 </div>
