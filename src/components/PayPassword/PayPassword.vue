@@ -87,7 +87,7 @@
         },
         components: {},
         created(){
-            this.getImageCode();
+           /* this.getImageCode();*/
             EventBus.$on('open', () => {
                 this.getImageCode();
             })
