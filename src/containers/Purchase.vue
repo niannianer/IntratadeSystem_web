@@ -211,6 +211,7 @@
                     this.errInfo = '请选择购买产品';
                     return false;
                 }
+                this.errInfo = '';
                 if (this.isAmount() && this.checkPassword()) {
                     let {productUuid, orderAmount, userPayPassword} = this;
                     this.loading = true;
@@ -224,8 +225,8 @@
                                 this.orderAmount = '';
                                 this.$store.dispatch('getBaofooInfo')
                                     .then(() => {
-                                        this.productUuid = '';
-                                        this.setCurrent();
+                                       /* this.productUuid = '';
+                                        this.setCurrent();*/
                                     });
                             }
                             else {
