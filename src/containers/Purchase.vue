@@ -58,7 +58,7 @@
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">购买金额</label>
                     <div class="form-input" flex-box="1">
-                        <input class="input input-purchase" @blur="keyUp"
+                        <input class="input input-purchase" @blur="keyUp" maxlength="11"
                                v-model.trim="orderAmount">
                     </div>
 
