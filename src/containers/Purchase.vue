@@ -41,10 +41,14 @@
                     <span flex-box="1"
                           class="form-input">{{currentProduct.productMinInvestment | currencyFormat}}元</span>
                 </div>
-                <div class="form-item" flex v-show="currentProduct.productMaxInvestment">
+                <div class="form-item" flex>
                     <label class="form-label" flex-box="0">最高可投</label>
-                    <span flex-box="1"
-                          class="form-input">{{currentProduct.productMaxInvestment | currencyFormat}}元</span>
+                    <span flex-box="1" v-show="currentProduct.productMaxInvestment"
+                          class="form-input">{{currentProduct.productMaxInvestment | currencyFormat}}元
+                    </span>
+                    <span flex-box="1" v-hide="currentProduct.productMaxInvestment"
+                          class="form-input">无
+                    </span>
                 </div>
                 <div class="form-item" flex>
                     <label class="form-label" flex-box="0">剩余可投</label>
