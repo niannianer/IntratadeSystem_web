@@ -16,7 +16,7 @@ if (process.env.kingold == 'test') {
 }
 /* prod config*/
 if (process.env.kingold == 'stage') {
-    apiUrl = `${protocol}//issuer-pc.zj-hf.cn`;
+    apiUrl = `${protocol}//issuer-pc-prod.zj-hf.cn`;
     baofooActionUrl = 'https://pm.baofoo.com/custody/';
     baofooCallUrl = `${protocol}//pre-callme.zj-hf.cn`;
     merchant_id = '1172380';
@@ -24,7 +24,7 @@ if (process.env.kingold == 'stage') {
 }
 /* prod config*/
 if (process.env.kingold == 'production') {
-    apiUrl = `${protocol}//issuer-pc.zj-hf.cn`;
+    apiUrl = `${protocol}//issuer-pc-prod.zj-hf.cn`;
     baofooActionUrl = 'https://pm.baofoo.com/custody/';
     baofooCallUrl = `${protocol}//callme.zj-hf.cn`;
     merchant_id = '1177929';
