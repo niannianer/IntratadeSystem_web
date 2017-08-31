@@ -70,6 +70,9 @@
                 'legalPersonMobile'
             ]),
             userText(){
+                if (!this.userType) {
+                    return '机构用户平台';
+                }
                 if (this.userType == 3) {
                     return '机构投资者'
                 } else {
