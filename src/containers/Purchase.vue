@@ -225,8 +225,8 @@
                                 this.orderAmount = '';
                                 this.$store.dispatch('getBaofooInfo')
                                     .then(() => {
-                                       /* this.productUuid = '';
-                                        this.setCurrent();*/
+                                       // this.productUuid = '';
+                                        this.setCurrent();
                                     });
                             }
                             else {
