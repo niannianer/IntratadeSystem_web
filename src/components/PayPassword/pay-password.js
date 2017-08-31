@@ -16,6 +16,7 @@ let initInstance = () => {
         });
     };
 };
+import EventBus from  '../../tools/event-bus';
 let PayPassword = (options = {}) => {
     if (!instance) {
         initInstance();
@@ -23,10 +24,12 @@ let PayPassword = (options = {}) => {
     document.body.appendChild(instance.$el);
     instance.title = options.title || '忘记交易密码';
     instance.update = options.update || false;
+
+    Vue.nextTick(() => {
+        EventBus.$emit('open');
+    });
     instance.callback = (result) => {
-        window.setTimeout(() => {
-            document.body.removeChild(instance.$el);
-        });
+        instance.close();
         if (options.callback) {
             options.callback(result);
         }

@@ -65,6 +65,7 @@
     import $api from '../../tools/api';
     import {isIdCard, isPayPassword, isPhone} from '../../tools/operation';
     import Toast from '../../components/Toast';
+    import EventBus from  '../../tools/event-bus';
     export default {
         name: 'pay-password',
         props: ['title', 'update'],
@@ -86,11 +87,14 @@
         },
         components: {},
         created(){
-
             this.getImageCode();
+            EventBus.$on('open', () => {
+                this.getImageCode();
+            })
         },
         computed: {},
         methods: {
+
             clearVar(){
                 this.mobile = '';
                 this.verifyCode = '';
@@ -209,22 +213,23 @@
                 if (!this.checkPassword()) {
                     return false;
                 }
-                if (!this.inputCode) {
-                    this.errInfo = '请输入图形证码';
-                    return false;
-                }
-                if (!this.verifyCode) {
-                    this.errInfo = '请输入短信验证码';
-                    return false;
-                }
                 if (!this.rePassword) {
-                    this.errInfo = '请重复输入密码';
+                    this.errInfo = '请输入重复密码';
                     return false;
                 }
                 if (this.rePassword != this.userPayPassword) {
                     this.errInfo = '两次密码不一致';
                     return false;
                 }
+                if (!this.verifyCode) {
+                    this.errInfo = '请输入短信验证码';
+                    return false;
+                }
+                if (!this.inputCode) {
+                    this.errInfo = '请输入图形证码';
+                    return false;
+                }
+
                 this.errInfo = '';
 
                 let {mobile, verifyCode, userPayPassword, idCard, preUserPayPassword} = this;

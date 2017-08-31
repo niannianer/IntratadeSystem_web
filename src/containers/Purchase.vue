@@ -132,6 +132,9 @@
                     clearTimeout(this.timer);
                 }
                 this.timer = setTimeout(() => {
+                    if (!this.orderAmount) {
+                        return false;
+                    }
                     if (isNaN(this.orderAmount)) {
                         this.orderAmount = '';
                     } else {
