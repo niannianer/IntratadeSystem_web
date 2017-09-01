@@ -87,7 +87,7 @@
         },
         components: {},
         created(){
-           /* this.getImageCode();*/
+            /* this.getImageCode();*/
             EventBus.$on('open', () => {
                 this.getImageCode();
             })
@@ -247,7 +247,7 @@
                             return false;
                         }
                         if (res.code == 1002) {
-                            this.errInfo = '设置交易密码时间过长,请重新设置';
+                            this.errInfo = res.msg;
                         }
                         else {
                             this.errInfo = res.msg;
