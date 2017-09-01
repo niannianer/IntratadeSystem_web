@@ -185,7 +185,7 @@
             },
             /*获取产品列表*/
             getList(){
-                $api.get('/product/getList')
+                return $api.get('/product/getList')
                     .then(res => {
                         if (res.code == 200) {
                             this.productList = res.data.productList;
@@ -218,16 +218,15 @@
                     $api.post('/trade/invest', {productUuid, orderAmount, userPayPassword})
                         .then(res => {
                             this.loading = false;
-                            this.getList();
+                            this.getList().then(() => {
+                                this.setCurrent();
+                            });
                             if (res.code == 200) {
                                 Toast('购买成功');
                                 this.userPayPassword = '';
                                 this.orderAmount = '';
-                                this.$store.dispatch('getBaofooInfo')
-                                    .then(() => {
-                                       // this.productUuid = '';
-                                        this.setCurrent();
-                                    });
+                                this.$store.dispatch('getBaofooInfo');
+
                             }
                             else {
                                 this.errInfo = res.msg;
