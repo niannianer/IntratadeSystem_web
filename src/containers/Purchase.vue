@@ -218,9 +218,12 @@
                     $api.post('/trade/invest', {productUuid, orderAmount, userPayPassword})
                         .then(res => {
                             this.loading = false;
-                            this.getList().then(() => {
-                                this.setCurrent();
-                            });
+                            setTimeout(() => {
+                                this.getList().then(() => {
+                                    this.setCurrent();
+                                });
+                            }, 3000);
+
                             if (res.code == 200) {
                                 Toast('购买成功');
                                 this.userPayPassword = '';
