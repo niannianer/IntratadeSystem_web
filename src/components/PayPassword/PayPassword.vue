@@ -107,6 +107,7 @@
                 this.inputCode = '';
                 this.timer = '';
                 this.callback();
+                this.errInfo = '';
                 this.clearTimeCount();
             },
             checkPhone(){
