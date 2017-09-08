@@ -15,7 +15,9 @@
                     <label flex-box="0" for="password">
                         <img class="icon" src="../images/login/icon-password.png"/>
                     </label>
-                    <input type="password" id="password"
+                    <input v-model.trim="userLoginPassword" v-if="loginType='text'"
+                           class="input" flex-box="1" placeholder="密码"/>
+                    <input type="password" id="password" v-if="loginType='password'"
                            v-model.trim="userLoginPassword"
                            class="input" flex-box="1" placeholder="密码"/>
                 </div>
@@ -66,7 +68,8 @@
                 inputCode: '',
                 errInfo: '',
                 loginText: '登录',
-                loading: false
+                loading: false,
+                loginType: 'text'
             }
         },
         created(){
@@ -122,7 +125,7 @@
                     this.errInfo = '请输入图片验证码';
                     return false;
                 }
-                if(this.loading){
+                if (this.loading) {
                     return false;
                 }
                 let param = {
@@ -164,6 +167,11 @@
                     });
 
             }
+        },
+        mounted(){
+            setTimeout(() => {
+                this.loginType = 'password';
+            },200);
         },
         destroyed(){
 
