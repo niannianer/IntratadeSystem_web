@@ -14,8 +14,9 @@ if (process.env.kingold == 'test') {
     apiUrl = `${protocol}//issuer-pc-test.zj-hf.cn`;
     baofooActionUrl = 'https://paytest.baofoo.com/baofoo-custody/custody/';
     baofooCallUrl = `${protocol}//issuer-pc-test.zj-hf.cn`;
+    encrypt = true;
 }
-/* prod config*/
+/* stage config*/
 if (process.env.kingold == 'stage') {
     apiUrl = `${protocol}//issuer-pc-prod.zj-hf.cn`;
     baofooActionUrl = 'https://pm.baofoo.com/custody/';
@@ -43,6 +44,6 @@ export default {
  * kingold key & IV
  * */
 /* key 和 iv 密文*/
-export const encryptKey = '6318cceeee91c45a7647faf7089623b32ac8e6bcb85b35dbaa5a5b1ef5baa2d12e7aa5c224012fadd7fd02866fd95626';
-export const encryptIV = '00df13f4e31ded1854bbd9d23985f95e5f50e6e91711900221f8ab3be6bc6a35';
+export const encryptKey = '73ded42e8a84ffb937765aa97c760f8449a0b7f091b6bfe70462896d22c039c38054e4622b4dcbb7ca93f3d0e8b1fdc3';
+export const encryptIV = 'dd515f3774e20d18ae9b19ea3fa8edd3906223e2ac35c805a6d984f2ca8c3d44';
 export let doEncrypt = encrypt;
