@@ -23,6 +23,7 @@ if (process.env.kingold == 'stage') {
     baofooCallUrl = `${protocol}//pre-callme.zj-hf.cn`;
     merchant_id = '1172380';
     terminal_id = '34865';
+    encrypt = true;
 
 }
 /* prod config*/
@@ -32,6 +33,7 @@ if (process.env.kingold == 'production') {
     baofooCallUrl = `${protocol}//callme.zj-hf.cn`;
     merchant_id = '1177929';
     terminal_id = '35265';
+    encrypt = true;
 }
 export default {
     apiUrl,
