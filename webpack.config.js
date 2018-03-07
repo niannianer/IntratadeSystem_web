@@ -20,7 +20,7 @@ console.log(env);
 
 const config = {
     entry: {
-        'ventor': ['vue', 'vue-router', 'vuex', 'bootstrap-vue'],
+        'ventor': ['vue', 'vue-router', 'vuex'],
         'tools': ['babel-polyfill', 'axios'],
         'main': './src/main.js'
     },
@@ -105,7 +105,7 @@ const config = {
         new webpack.NoEmitOnErrorsPlugin(),
         // new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
-            title: '金疙瘩',
+            title: '上海迈利船泊',
             favicon: './src/images/logo.png',
             chunks: ['ventor', 'tools', 'main'],
             inject: 'body',

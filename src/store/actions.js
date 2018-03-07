@@ -18,40 +18,4 @@ actions.getUserInfo = ({commit}) => {
             return data;
         });
 };
-// baofoo 信息
-let getBaofooInfo = () => {
-    return $api.get('/account/getAccountBaofoo');
-};
-actions.getBaofooInfo = ({commit}) => {
-    return getBaofooInfo()
-        .then(data => {
-            if (data.code == 200) {
-                commit('setBaofooInfo', data.data);
-            }
-            return data;
-        });
-};
- //bank info
-let getBankInfo=()=>{
-    return $api.get('/account/getUserBankCardInfo');
-};
-actions.getBankInfo= ({commit}) => {
-    return getBankInfo()
-        .then(data=>{
-            if(data.code==200){
-                let {bankUserCardNo} = data.data;
-                commit('setBankUser', data.data);
-                if (!bankUserCardNo) {
-                    return false;
-                }
-                return $api.get('/getBankInfo', {bankNo: bankUserCardNo.substring(0, 6)})
-                    .then(data => {
-                        if (data.code == 200) {
-                            commit('setBankInfo', data.data);
-                        }
-                    });
-            }
-            return data;
-        });
-};
 export default actions;

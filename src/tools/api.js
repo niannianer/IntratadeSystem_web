@@ -3,8 +3,7 @@
  */
 import 'babel-polyfill';
 import axios from 'axios';
-import config,{doEncrypt} from './config';
-import {encryptFun, decryptFun} from './crypto';
+import config from './config';
 let serverUrl = config.apiUrl;
 let query = data => {
     let str = [];
@@ -19,21 +18,8 @@ let query = data => {
     }
     return str.join('&');
 };
-let $query = (data) => {
-    let str = [];
-    for (let key in data) {
-        if (data.hasOwnProperty(key)) {
-            if (typeof data[key] != 'object') {
-                str.push(encryptFun(encodeURIComponent(key)) + '=' + encodeURIComponent(encryptFun(data[key])));
-            } else {
-                str.push(encryptFun(encodeURIComponent(key)) + '=' + encodeURIComponent(encryptFun(JSON.stringify(data[key]))));
-            }
-        }
-    }
-    return str.join('&');
-};
+
 let get = (path, data = {}) => {
-    data.callSystemID = '1005';
     data.t = new Date().getTime();
     let url = `${serverUrl + path}`;
     return axios({
@@ -53,9 +39,6 @@ let get = (path, data = {}) => {
         }
         return {};
     }).then(data => {
-        if (doEncrypt) {
-            data = JSON.parse(decryptFun(data));
-        }
         console.log(url);
         console.log(data);
         return data;
@@ -64,9 +47,8 @@ let get = (path, data = {}) => {
         console.error('error,--->', err);
     });
 };
-import  {logout} from './operation';
+
 let post = (path, data = {}) => {
-    data.callSystemID = '1005';
     let url = `${serverUrl + path}`;
     return axios({
         url,
@@ -78,7 +60,7 @@ let post = (path, data = {}) => {
             t: new Date().getTime()
         },
         withCredentials: true,
-        data: doEncrypt ? $query(data) : query(data)
+        data: query(data)
     }).then(response => {
         if (response.status == 200) {
             return response.data
@@ -88,11 +70,8 @@ let post = (path, data = {}) => {
         }
         return {};
     }).then(data => {
-        if (doEncrypt) {
-            data = JSON.parse(decryptFun(data));
-        }
         if (data.code == 401) {
-            logout();
+            //退出登陆
         }
         console.log(url);
         console.log(data);
